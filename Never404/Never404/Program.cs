@@ -8,6 +8,7 @@ namespace Never404
         {
             Console.WriteLine("Hello World!");
             Console.WriteLine("adrian");
+            Console.WriteLine("adrian2");
         }
     }
 }
