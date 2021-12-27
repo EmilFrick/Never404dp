@@ -45,6 +45,8 @@
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -53,13 +55,95 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="404Accounts\AccountBuilder.cs" />
+    <Compile Include="404Accounts\AccountFactory.cs" />
+    <Compile Include="404Accounts\AccountModel.cs" />
+    <Compile Include="404Accounts\AssembledAccount.cs" />
+    <Compile Include="404Accounts\IAccount.cs" />
+    <Compile Include="404BankServices\BankServices\ApplyInterest.cs" />
+    <Compile Include="404BankServices\BankServices\Deposit.cs" />
+    <Compile Include="404BankServices\BankServices\ForeignPayment.cs" />
+    <Compile Include="404BankServices\BankServices\ForeignTransfer.cs" />
+    <Compile Include="404BankServices\BankServices\IBankService.cs" />
+    <Compile Include="404BankServices\BankServices\Investment.cs" />
+    <Compile Include="404BankServices\BankServices\Loan.cs" />
+    <Compile Include="404BankServices\BankServices\PayInvoice.cs" />
+    <Compile Include="404BankServices\BankServices\Save.cs" />
+    <Compile Include="404BankServices\BankServices\Transfer.cs" />
+    <Compile Include="404BankServices\BankServices\Withdraw.cs" />
+    <Compile Include="404BankServices\Decorator\AccountDecorator.cs" />
+    <Compile Include="404BankServices\Strategies\IMembershipStrategy.cs" />
+    <Compile Include="404BankServices\Strategies\Save\SaveGold.cs" />
+    <Compile Include="404BankServices\Strategies\Save\SavePlatinum.cs" />
+    <Compile Include="404BankServices\Strategies\Save\SaveSilver.cs" />
+    <Compile Include="404Users\ActiveUser.cs" />
+    <Compile Include="Account.cs">
+      <DependentUpon>BankModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AccountType.cs">
+      <DependentUpon>BankModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="BankModel.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>BankModel.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="BankModel.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>BankModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="BankModel.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>BankModel.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="MembershipType.cs">
+      <DependentUpon>BankModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Repository\AccountRepository.cs" />
+    <Compile Include="Specification.cs">
+      <DependentUpon>BankModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Transaction.cs">
+      <DependentUpon>BankModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="TransactionType.cs">
+      <DependentUpon>BankModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="User.cs">
+      <DependentUpon>BankModel.tt</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+    <EntityDeploy Include="BankModel.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>BankModel.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <None Include="BankModel.edmx.diagram">
+      <DependentUpon>BankModel.edmx</DependentUpon>
+    </None>
     <None Include="packages.config" />
   </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="BankModel.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>BankModel.edmx</DependentUpon>
+      <LastGenOutput>BankModel.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="BankModel.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>BankModel.edmx</DependentUpon>
+      <LastGenOutput>BankModel.cs</LastGenOutput>
+    </Content>
+  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>

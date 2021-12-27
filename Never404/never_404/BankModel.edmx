@@ -1,0 +1,516 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="BankNever404Model.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Account">
+          <Key>
+            <PropertyRef Name="AccountNumber" />
+          </Key>
+          <Property Name="AccountNumber" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UserID" Type="int" />
+          <Property Name="AccountType" Type="varchar" MaxLength="20" />
+          <Property Name="Balance" Type="decimal" Precision="18" Scale="0" />
+        </EntityType>
+        <EntityType Name="AccountType">
+          <Key>
+            <PropertyRef Name="AccountTypeName" />
+          </Key>
+          <Property Name="AccountTypeName" Type="varchar" MaxLength="20" Nullable="false" />
+        </EntityType>
+        <EntityType Name="MembershipType">
+          <Key>
+            <PropertyRef Name="MembershipTypeName" />
+          </Key>
+          <Property Name="MembershipTypeName" Type="varchar" MaxLength="20" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Specification">
+          <Key>
+            <PropertyRef Name="SpecificationID" />
+          </Key>
+          <Property Name="SpecificationID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="SpecificationOwner" Type="int" />
+          <Property Name="TransactionID" Type="int" />
+          <Property Name="Sender" Type="varchar" MaxLength="50" />
+          <Property Name="Receiver" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Transaction">
+          <Key>
+            <PropertyRef Name="TransactionID" />
+          </Key>
+          <Property Name="TransactionID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="SenderAccount" Type="int" />
+          <Property Name="ReceiverAccount" Type="int" />
+          <Property Name="Amount" Type="decimal" Precision="18" Scale="0" />
+          <Property Name="TransactionDate" Type="datetime" />
+          <Property Name="TransactionType" Type="varchar" MaxLength="20" />
+        </EntityType>
+        <EntityType Name="TransactionType">
+          <Key>
+            <PropertyRef Name="TransactionTypeName" />
+          </Key>
+          <Property Name="TransactionTypeName" Type="varchar" MaxLength="20" Nullable="false" />
+        </EntityType>
+        <EntityType Name="User">
+          <Key>
+            <PropertyRef Name="UserID" />
+          </Key>
+          <Property Name="UserID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="SSN" Type="varchar" MaxLength="11" />
+          <Property Name="Password" Type="varchar" MaxLength="20" />
+          <Property Name="FirstName" Type="varchar" MaxLength="20" />
+          <Property Name="LastName" Type="varchar" MaxLength="20" />
+          <Property Name="MembershipType" Type="varchar" MaxLength="20" />
+        </EntityType>
+        <Association Name="Account_AccountType_FK">
+          <End Role="AccountType" Type="Self.AccountType" Multiplicity="0..1" />
+          <End Role="Account" Type="Self.Account" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AccountType">
+              <PropertyRef Name="AccountTypeName" />
+            </Principal>
+            <Dependent Role="Account">
+              <PropertyRef Name="AccountType" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Account_UserID_FK">
+          <End Role="User" Type="Self.User" Multiplicity="0..1" />
+          <End Role="Account" Type="Self.Account" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="UserID" />
+            </Principal>
+            <Dependent Role="Account">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Specification_SpecificationOwner_FK">
+          <End Role="Account" Type="Self.Account" Multiplicity="0..1" />
+          <End Role="Specification" Type="Self.Specification" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Account">
+              <PropertyRef Name="AccountNumber" />
+            </Principal>
+            <Dependent Role="Specification">
+              <PropertyRef Name="SpecificationOwner" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Specification_TransactionID_FK">
+          <End Role="Transaction" Type="Self.Transaction" Multiplicity="0..1" />
+          <End Role="Specification" Type="Self.Specification" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Transaction">
+              <PropertyRef Name="TransactionID" />
+            </Principal>
+            <Dependent Role="Specification">
+              <PropertyRef Name="TransactionID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Transaction_ReceiverAccount_FK">
+          <End Role="Account" Type="Self.Account" Multiplicity="0..1" />
+          <End Role="Transaction" Type="Self.Transaction" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Account">
+              <PropertyRef Name="AccountNumber" />
+            </Principal>
+            <Dependent Role="Transaction">
+              <PropertyRef Name="ReceiverAccount" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Transaction_SenderAccount_FK">
+          <End Role="Account" Type="Self.Account" Multiplicity="0..1" />
+          <End Role="Transaction" Type="Self.Transaction" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Account">
+              <PropertyRef Name="AccountNumber" />
+            </Principal>
+            <Dependent Role="Transaction">
+              <PropertyRef Name="SenderAccount" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Transaction_TransactionType_FK">
+          <End Role="TransactionType" Type="Self.TransactionType" Multiplicity="0..1" />
+          <End Role="Transaction" Type="Self.Transaction" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TransactionType">
+              <PropertyRef Name="TransactionTypeName" />
+            </Principal>
+            <Dependent Role="Transaction">
+              <PropertyRef Name="TransactionType" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="User_MembershipType_FK">
+          <End Role="MembershipType" Type="Self.MembershipType" Multiplicity="0..1" />
+          <End Role="User" Type="Self.User" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MembershipType">
+              <PropertyRef Name="MembershipTypeName" />
+            </Principal>
+            <Dependent Role="User">
+              <PropertyRef Name="MembershipType" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="BankNever404ModelStoreContainer">
+          <EntitySet Name="Account" EntityType="Self.Account" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AccountType" EntityType="Self.AccountType" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="MembershipType" EntityType="Self.MembershipType" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Specification" EntityType="Self.Specification" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Transaction" EntityType="Self.Transaction" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TransactionType" EntityType="Self.TransactionType" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="User" EntityType="Self.User" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="Account_AccountType_FK" Association="Self.Account_AccountType_FK">
+            <End Role="AccountType" EntitySet="AccountType" />
+            <End Role="Account" EntitySet="Account" />
+          </AssociationSet>
+          <AssociationSet Name="Account_UserID_FK" Association="Self.Account_UserID_FK">
+            <End Role="User" EntitySet="User" />
+            <End Role="Account" EntitySet="Account" />
+          </AssociationSet>
+          <AssociationSet Name="Specification_SpecificationOwner_FK" Association="Self.Specification_SpecificationOwner_FK">
+            <End Role="Account" EntitySet="Account" />
+            <End Role="Specification" EntitySet="Specification" />
+          </AssociationSet>
+          <AssociationSet Name="Specification_TransactionID_FK" Association="Self.Specification_TransactionID_FK">
+            <End Role="Transaction" EntitySet="Transaction" />
+            <End Role="Specification" EntitySet="Specification" />
+          </AssociationSet>
+          <AssociationSet Name="Transaction_ReceiverAccount_FK" Association="Self.Transaction_ReceiverAccount_FK">
+            <End Role="Account" EntitySet="Account" />
+            <End Role="Transaction" EntitySet="Transaction" />
+          </AssociationSet>
+          <AssociationSet Name="Transaction_SenderAccount_FK" Association="Self.Transaction_SenderAccount_FK">
+            <End Role="Account" EntitySet="Account" />
+            <End Role="Transaction" EntitySet="Transaction" />
+          </AssociationSet>
+          <AssociationSet Name="Transaction_TransactionType_FK" Association="Self.Transaction_TransactionType_FK">
+            <End Role="TransactionType" EntitySet="TransactionType" />
+            <End Role="Transaction" EntitySet="Transaction" />
+          </AssociationSet>
+          <AssociationSet Name="User_MembershipType_FK" Association="Self.User_MembershipType_FK">
+            <End Role="MembershipType" EntitySet="MembershipType" />
+            <End Role="User" EntitySet="User" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="BankNever404Model" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Account">
+          <Key>
+            <PropertyRef Name="AccountNumber" />
+          </Key>
+          <Property Name="AccountNumber" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserID" Type="Int32" />
+          <Property Name="AccountType" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="Balance" Type="Decimal" Precision="18" Scale="0" />
+          <NavigationProperty Name="AccountType1" Relationship="Self.Account_AccountType_FK" FromRole="Account" ToRole="AccountType" />
+          <NavigationProperty Name="User" Relationship="Self.Account_UserID_FK" FromRole="Account" ToRole="User" />
+          <NavigationProperty Name="Specification" Relationship="Self.Specification_SpecificationOwner_FK" FromRole="Account" ToRole="Specification" />
+          <NavigationProperty Name="Transaction" Relationship="Self.Transaction_ReceiverAccount_FK" FromRole="Account" ToRole="Transaction" />
+          <NavigationProperty Name="Transaction1" Relationship="Self.Transaction_SenderAccount_FK" FromRole="Account" ToRole="Transaction" />
+        </EntityType>
+        <EntityType Name="AccountType">
+          <Key>
+            <PropertyRef Name="AccountTypeName" />
+          </Key>
+          <Property Name="AccountTypeName" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Account" Relationship="Self.Account_AccountType_FK" FromRole="AccountType" ToRole="Account" />
+        </EntityType>
+        <EntityType Name="MembershipType">
+          <Key>
+            <PropertyRef Name="MembershipTypeName" />
+          </Key>
+          <Property Name="MembershipTypeName" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="User" Relationship="Self.User_MembershipType_FK" FromRole="MembershipType" ToRole="User" />
+        </EntityType>
+        <EntityType Name="Specification">
+          <Key>
+            <PropertyRef Name="SpecificationID" />
+          </Key>
+          <Property Name="SpecificationID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="SpecificationOwner" Type="Int32" />
+          <Property Name="TransactionID" Type="Int32" />
+          <Property Name="Sender" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Receiver" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Account" Relationship="Self.Specification_SpecificationOwner_FK" FromRole="Specification" ToRole="Account" />
+          <NavigationProperty Name="Transaction" Relationship="Self.Specification_TransactionID_FK" FromRole="Specification" ToRole="Transaction" />
+        </EntityType>
+        <EntityType Name="Transaction">
+          <Key>
+            <PropertyRef Name="TransactionID" />
+          </Key>
+          <Property Name="TransactionID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="SenderAccount" Type="Int32" />
+          <Property Name="ReceiverAccount" Type="Int32" />
+          <Property Name="Amount" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="TransactionDate" Type="DateTime" Precision="3" />
+          <Property Name="TransactionType" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Account" Relationship="Self.Transaction_ReceiverAccount_FK" FromRole="Transaction" ToRole="Account" />
+          <NavigationProperty Name="Account1" Relationship="Self.Transaction_SenderAccount_FK" FromRole="Transaction" ToRole="Account" />
+          <NavigationProperty Name="Specification" Relationship="Self.Specification_TransactionID_FK" FromRole="Transaction" ToRole="Specification" />
+          <NavigationProperty Name="TransactionType1" Relationship="Self.Transaction_TransactionType_FK" FromRole="Transaction" ToRole="TransactionType" />
+        </EntityType>
+        <EntityType Name="TransactionType">
+          <Key>
+            <PropertyRef Name="TransactionTypeName" />
+          </Key>
+          <Property Name="TransactionTypeName" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Transaction" Relationship="Self.Transaction_TransactionType_FK" FromRole="TransactionType" ToRole="Transaction" />
+        </EntityType>
+        <EntityType Name="User">
+          <Key>
+            <PropertyRef Name="UserID" />
+          </Key>
+          <Property Name="UserID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="SSN" Type="String" MaxLength="11" FixedLength="false" Unicode="false" />
+          <Property Name="Password" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="FirstName" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="LastName" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="MembershipType" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Account" Relationship="Self.Account_UserID_FK" FromRole="User" ToRole="Account" />
+          <NavigationProperty Name="MembershipType1" Relationship="Self.User_MembershipType_FK" FromRole="User" ToRole="MembershipType" />
+        </EntityType>
+        <Association Name="Account_AccountType_FK">
+          <End Role="AccountType" Type="Self.AccountType" Multiplicity="0..1" />
+          <End Role="Account" Type="Self.Account" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AccountType">
+              <PropertyRef Name="AccountTypeName" />
+            </Principal>
+            <Dependent Role="Account">
+              <PropertyRef Name="AccountType" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Account_UserID_FK">
+          <End Role="User" Type="Self.User" Multiplicity="0..1" />
+          <End Role="Account" Type="Self.Account" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="UserID" />
+            </Principal>
+            <Dependent Role="Account">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Specification_SpecificationOwner_FK">
+          <End Role="Account" Type="Self.Account" Multiplicity="0..1" />
+          <End Role="Specification" Type="Self.Specification" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Account">
+              <PropertyRef Name="AccountNumber" />
+            </Principal>
+            <Dependent Role="Specification">
+              <PropertyRef Name="SpecificationOwner" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Transaction_ReceiverAccount_FK">
+          <End Role="Account" Type="Self.Account" Multiplicity="0..1" />
+          <End Role="Transaction" Type="Self.Transaction" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Account">
+              <PropertyRef Name="AccountNumber" />
+            </Principal>
+            <Dependent Role="Transaction">
+              <PropertyRef Name="ReceiverAccount" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Transaction_SenderAccount_FK">
+          <End Role="Account" Type="Self.Account" Multiplicity="0..1" />
+          <End Role="Transaction" Type="Self.Transaction" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Account">
+              <PropertyRef Name="AccountNumber" />
+            </Principal>
+            <Dependent Role="Transaction">
+              <PropertyRef Name="SenderAccount" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="User_MembershipType_FK">
+          <End Role="MembershipType" Type="Self.MembershipType" Multiplicity="0..1" />
+          <End Role="User" Type="Self.User" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MembershipType">
+              <PropertyRef Name="MembershipTypeName" />
+            </Principal>
+            <Dependent Role="User">
+              <PropertyRef Name="MembershipType" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Specification_TransactionID_FK">
+          <End Role="Transaction" Type="Self.Transaction" Multiplicity="0..1" />
+          <End Role="Specification" Type="Self.Specification" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Transaction">
+              <PropertyRef Name="TransactionID" />
+            </Principal>
+            <Dependent Role="Specification">
+              <PropertyRef Name="TransactionID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Transaction_TransactionType_FK">
+          <End Role="TransactionType" Type="Self.TransactionType" Multiplicity="0..1" />
+          <End Role="Transaction" Type="Self.Transaction" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TransactionType">
+              <PropertyRef Name="TransactionTypeName" />
+            </Principal>
+            <Dependent Role="Transaction">
+              <PropertyRef Name="TransactionType" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="BankDBContext" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Account" EntityType="Self.Account" />
+          <EntitySet Name="AccountType" EntityType="Self.AccountType" />
+          <EntitySet Name="MembershipType" EntityType="Self.MembershipType" />
+          <EntitySet Name="Specification" EntityType="Self.Specification" />
+          <EntitySet Name="Transaction" EntityType="Self.Transaction" />
+          <EntitySet Name="TransactionType" EntityType="Self.TransactionType" />
+          <EntitySet Name="User" EntityType="Self.User" />
+          <AssociationSet Name="Account_AccountType_FK" Association="Self.Account_AccountType_FK">
+            <End Role="AccountType" EntitySet="AccountType" />
+            <End Role="Account" EntitySet="Account" />
+          </AssociationSet>
+          <AssociationSet Name="Account_UserID_FK" Association="Self.Account_UserID_FK">
+            <End Role="User" EntitySet="User" />
+            <End Role="Account" EntitySet="Account" />
+          </AssociationSet>
+          <AssociationSet Name="Specification_SpecificationOwner_FK" Association="Self.Specification_SpecificationOwner_FK">
+            <End Role="Account" EntitySet="Account" />
+            <End Role="Specification" EntitySet="Specification" />
+          </AssociationSet>
+          <AssociationSet Name="Transaction_ReceiverAccount_FK" Association="Self.Transaction_ReceiverAccount_FK">
+            <End Role="Account" EntitySet="Account" />
+            <End Role="Transaction" EntitySet="Transaction" />
+          </AssociationSet>
+          <AssociationSet Name="Transaction_SenderAccount_FK" Association="Self.Transaction_SenderAccount_FK">
+            <End Role="Account" EntitySet="Account" />
+            <End Role="Transaction" EntitySet="Transaction" />
+          </AssociationSet>
+          <AssociationSet Name="User_MembershipType_FK" Association="Self.User_MembershipType_FK">
+            <End Role="MembershipType" EntitySet="MembershipType" />
+            <End Role="User" EntitySet="User" />
+          </AssociationSet>
+          <AssociationSet Name="Specification_TransactionID_FK" Association="Self.Specification_TransactionID_FK">
+            <End Role="Transaction" EntitySet="Transaction" />
+            <End Role="Specification" EntitySet="Specification" />
+          </AssociationSet>
+          <AssociationSet Name="Transaction_TransactionType_FK" Association="Self.Transaction_TransactionType_FK">
+            <End Role="TransactionType" EntitySet="TransactionType" />
+            <End Role="Transaction" EntitySet="Transaction" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="BankNever404ModelStoreContainer" CdmEntityContainer="BankDBContext">
+          <EntitySetMapping Name="Account">
+            <EntityTypeMapping TypeName="BankNever404Model.Account">
+              <MappingFragment StoreEntitySet="Account">
+                <ScalarProperty Name="AccountNumber" ColumnName="AccountNumber" />
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+                <ScalarProperty Name="AccountType" ColumnName="AccountType" />
+                <ScalarProperty Name="Balance" ColumnName="Balance" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AccountType">
+            <EntityTypeMapping TypeName="BankNever404Model.AccountType">
+              <MappingFragment StoreEntitySet="AccountType">
+                <ScalarProperty Name="AccountTypeName" ColumnName="AccountTypeName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="MembershipType">
+            <EntityTypeMapping TypeName="BankNever404Model.MembershipType">
+              <MappingFragment StoreEntitySet="MembershipType">
+                <ScalarProperty Name="MembershipTypeName" ColumnName="MembershipTypeName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Specification">
+            <EntityTypeMapping TypeName="BankNever404Model.Specification">
+              <MappingFragment StoreEntitySet="Specification">
+                <ScalarProperty Name="SpecificationID" ColumnName="SpecificationID" />
+                <ScalarProperty Name="SpecificationOwner" ColumnName="SpecificationOwner" />
+                <ScalarProperty Name="TransactionID" ColumnName="TransactionID" />
+                <ScalarProperty Name="Sender" ColumnName="Sender" />
+                <ScalarProperty Name="Receiver" ColumnName="Receiver" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Transaction">
+            <EntityTypeMapping TypeName="BankNever404Model.Transaction">
+              <MappingFragment StoreEntitySet="Transaction">
+                <ScalarProperty Name="TransactionID" ColumnName="TransactionID" />
+                <ScalarProperty Name="SenderAccount" ColumnName="SenderAccount" />
+                <ScalarProperty Name="ReceiverAccount" ColumnName="ReceiverAccount" />
+                <ScalarProperty Name="Amount" ColumnName="Amount" />
+                <ScalarProperty Name="TransactionDate" ColumnName="TransactionDate" />
+                <ScalarProperty Name="TransactionType" ColumnName="TransactionType" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TransactionType">
+            <EntityTypeMapping TypeName="BankNever404Model.TransactionType">
+              <MappingFragment StoreEntitySet="TransactionType">
+                <ScalarProperty Name="TransactionTypeName" ColumnName="TransactionTypeName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="User">
+            <EntityTypeMapping TypeName="BankNever404Model.User">
+              <MappingFragment StoreEntitySet="User">
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+                <ScalarProperty Name="SSN" ColumnName="SSN" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="MembershipType" ColumnName="MembershipType" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

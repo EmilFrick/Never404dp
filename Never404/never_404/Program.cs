@@ -1,4 +1,6 @@
-﻿using System;
+﻿using never_404._404Accounts;
+using never_404.Repository;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -10,6 +12,11 @@ namespace never_404
     {
         static void Main(string[] args)
         {
+            int accountNumber = 512885004;
+            AssembledAccount account = AccountFactory.AssembleAccount(accountNumber);
+            //PresentDetails(account);
+            account.ExecuteService("Save");
+            Console.ReadLine();
         }
     }
 }
