@@ -32,7 +32,7 @@ namespace never_404._404BankServices.Decorator
 
         public string ServiceName { get; set; }
 
-        public virtual void Action(params string[] data)
+        public virtual void Action(ActionModel data)
         {
             //I Execute a BankService
         }

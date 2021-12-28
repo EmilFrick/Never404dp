@@ -1,4 +1,6 @@
-﻿using System;
+﻿using never_404._404BankServices;
+using never_404._404Transaction;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -14,6 +16,6 @@ namespace never_404._404Accounts
 
         decimal Balance { get; set; }
 
-        void Action(params string[] data);
+        void Action(ActionModel data);
     }
 }

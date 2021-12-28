@@ -1,4 +1,5 @@
-﻿using System;
+﻿using never_404._404Transaction;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,7 +9,7 @@ namespace never_404._404BankServices.Strategies.Save
 {
     public class SavePlatinum : IMembershipStrategy
     {
-        public void Action(params string[] data)
+        public void Action(ActionModel data)
         {
             Console.WriteLine("I Save Platinum");
         }
