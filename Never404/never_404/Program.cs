@@ -1,4 +1,5 @@
 ﻿using never_404._404Accounts;
+using never_404._404BankServices;
 using never_404.Repository;
 using System;
 using System.Collections.Generic;
@@ -15,7 +16,7 @@ namespace never_404
             int accountNumber = 512885004;
             AssembledAccount account = AccountFactory.AssembleAccount(accountNumber);
             //PresentDetails(account);
-            account.ExecuteService("Save");
+            account.ExecuteService("save", new ActionModel());
             Console.ReadLine();
         }
     }

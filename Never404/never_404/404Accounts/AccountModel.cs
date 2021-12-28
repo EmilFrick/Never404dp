@@ -20,14 +20,9 @@ namespace never_404._404Accounts
             Balance = balance;
         }
 
-        public void Action(Action data)
-        {
-            //I Excecute BankService
-        }
-
         public void Action(ActionModel data)
         {
-            throw new NotImplementedException();
+            //I Excecute BankService
         }
     }
 }
