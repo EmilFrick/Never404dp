@@ -6,16 +6,16 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace never_404._404BankServices.Strategies.PayInvoice
+namespace never_404._404BankServices.Strategies.ForeignPayment
 {
-    public class PayInvoiceGold : IMembershipStrategy
+    class ForeignPaymentPlatinum : IMembershipStrategy
     {
         public void Action(ActionModel data)
         {
             decimal silverFee = 0.05m;
             Transaction newTransaction = new TransactionModel(data.SenderAccount, data.ReceiverAccount, data.Amount, data.TransactionType).GenerateTransaction();
             TransactionRepository.GetRepository().CreateTransaction(newTransaction, silverFee);
-            Console.WriteLine("I Pay Gold");
+            Console.WriteLine("I Pay Silver");
         }
     }
 }

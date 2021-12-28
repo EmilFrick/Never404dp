@@ -15,7 +15,7 @@ namespace never_404._404BankServices.Strategies.PayInvoice
             decimal silverFee = 0.01m;
             Transaction newTransaction = new TransactionModel(data.SenderAccount, data.ReceiverAccount, data.Amount, data.TransactionType).GenerateTransaction();
             TransactionRepository.GetRepository().CreateTransaction(newTransaction, silverFee);
-            Console.WriteLine("I Pay Silver");
+            Console.WriteLine("I Pay Platinum");
         }
     }
 }
