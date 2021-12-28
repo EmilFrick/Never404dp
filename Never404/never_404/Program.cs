@@ -16,7 +16,7 @@ namespace never_404
             int accountNumber = 512885004;
             AssembledAccount account = AccountFactory.AssembleAccount(accountNumber);
             //PresentDetails(account);
-            account.ExecuteService("save", new ActionModel());
+            account.ExecuteService("Save", new ActionModel());
             Console.ReadLine();
         }
     }

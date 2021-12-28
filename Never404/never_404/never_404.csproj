@@ -80,6 +80,9 @@
     <Compile Include="404BankServices\Strategies\Save\SavePlatinum.cs" />
     <Compile Include="404BankServices\Strategies\Save\SaveSilver.cs" />
     <Compile Include="404BankServices\ActionModel.cs" />
+    <Compile Include="404BankServices\Strategies\Transfer\TransferGold.cs" />
+    <Compile Include="404BankServices\Strategies\Transfer\TransferPlatinum.cs" />
+    <Compile Include="404BankServices\Strategies\Transfer\TransferSilver.cs" />
     <Compile Include="404Transaction\TransactionModel.cs" />
     <Compile Include="404Users\ActiveUser.cs" />
     <Compile Include="Account.cs">
