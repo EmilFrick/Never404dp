@@ -17,6 +17,6 @@ namespace never_404._404BankServices.Strategies.ForeignPayment
             TransactionRepository.GetRepository().CreateTransaction(newTransaction, silverFee);
             Console.WriteLine("I Pay Silver");
         }
-    {
+    
     }
 }

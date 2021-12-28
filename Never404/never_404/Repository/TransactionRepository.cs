@@ -34,6 +34,19 @@ namespace never_404.Repository
             BankDBContext db = new BankDBContext();
             db.Account.FirstOrDefault(x => x.AccountNumber == transaction.ReceiverAccount).Balance += transaction.Amount;
             db.Account.FirstOrDefault(x => x.AccountNumber == transaction.SenderAccount).Balance -= transaction.Amount;
+
+            int receiver = transaction.ReceiverAccount.GetValueOrDefault();
+            int sender = transaction.SenderAccount.GetValueOrDefault();
+
+            if (AccountRepository.GetRepository().GetAccount(receiver).AccountType != "Bank")
+            {
+               // Create Specification for receiverAccount
+            }
+            if (AccountRepository.GetRepository().GetAccount(sender).AccountType != "Bank")
+            {
+                // Create Specification for SenderAccount
+            }
+
             db.Transaction.Add(transaction);
             db.SaveChanges();
         }
