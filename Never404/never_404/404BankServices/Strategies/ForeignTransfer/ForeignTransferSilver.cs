@@ -6,15 +6,16 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace never_404._404BankServices.Strategies.Transfer
+namespace never_404._404BankServices.Strategies.ForeignTransfer
 {
-    class TransferSilver: IMembershipStrategy
+    class ForeignTransferSilver: IMembershipStrategy
     {
         public void Action(ActionModel data)
         {
+            int bankFixedRate = 150;
             Transaction newTransaction = new TransactionModel(data.SenderAccount, data.ReceiverAccount, data.Amount, data.TransactionType).GenerateTransaction();
-            TransactionRepository.GetRepository().CreateTransaction(newTransaction);
-            Console.WriteLine("I transfer Silver");
+            TransactionRepository.GetRepository().TransactionFixedRate(newTransaction, bankFixedRate);
+            Console.WriteLine("Foreign transfer with Gold");
         }
     }
 }

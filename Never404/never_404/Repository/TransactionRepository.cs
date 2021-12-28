@@ -47,5 +47,15 @@ namespace never_404.Repository
             db.Transaction.Add(transaction);
             db.SaveChanges();
         }
+        public void TransactionFixedRate(Transaction transaction, int fixedRate)
+        {
+            BankDBContext db = new BankDBContext();
+            int bankFixedRate = fixedRate;
+            db.Account.FirstOrDefault(x => x.AccountNumber == transaction.ReceiverAccount).Balance += transaction.Amount;
+            db.Account.FirstOrDefault(x => x.AccountNumber == transaction.SenderAccount).Balance -= (transaction.Amount + fixedRate);
+            db.Account.FirstOrDefault(x => x.AccountNumber == 512885004).Balance += fixedRate;
+            db.Transaction.Add(transaction);
+            db.SaveChanges();
+        }
     }
 }
