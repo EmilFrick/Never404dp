@@ -112,7 +112,9 @@
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repository\AccountRepository.cs" />
+    <Compile Include="Repository\SpecificationRepository.cs" />
     <Compile Include="Repository\TransactionRepository.cs" />
+    <Compile Include="Repository\UserRepository.cs" />
     <Compile Include="Specification.cs">
       <DependentUpon>BankModel.tt</DependentUpon>
     </Compile>

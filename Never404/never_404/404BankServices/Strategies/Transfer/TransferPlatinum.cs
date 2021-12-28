@@ -16,6 +16,6 @@ namespace never_404._404BankServices.Strategies.Transfer
             TransactionRepository.GetRepository().CreateTransaction(newTransaction);
             Console.WriteLine("I transfer Platinum");
         }
-    {
+    
     }
 }
