@@ -15,7 +15,7 @@ namespace never_404._404BankServices.BankServices
             ServiceName = "Foreign Payment";
         }
 
-        public override void Action(params string[] data)
+        public override void Action(ActionModel data)
         {
             Console.WriteLine("I made a payment to an account outside of Sweden");
         }

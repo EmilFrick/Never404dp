@@ -1,4 +1,5 @@
-﻿using never_404._404BankServices.BankServices;
+﻿using never_404._404BankServices;
+using never_404._404BankServices.BankServices;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -23,9 +24,9 @@ namespace never_404._404Accounts
             AccountServices = services;
         }
 
-        public void ExecuteService(string cmd, params string[] data)
+        public void ExecuteService(string cmd, ActionModel data)
         {
-            AccountServices.FirstOrDefault(x => x.ServiceName == cmd)?.Action();
+            AccountServices.FirstOrDefault(x => x.ServiceName == cmd)?.Action(data);
         }
 
         public List<string> ShowServices()

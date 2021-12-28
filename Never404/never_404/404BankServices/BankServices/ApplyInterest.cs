@@ -15,7 +15,7 @@ namespace never_404._404BankServices.BankServices
             ServiceName = "Apply Interest";
         }
 
-        public override void Action(params string[] data)
+        public override void Action(ActionModel data)
         {
             Console.WriteLine("Interest got added to this account");
         }

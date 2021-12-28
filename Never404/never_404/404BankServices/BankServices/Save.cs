@@ -20,9 +20,9 @@ namespace never_404._404BankServices.BankServices
             IdentifyStrategy("Gold"); 
         }
 
-        public override void Action(params string[] data)
+        public override void Action(ActionModel data)
         {
-            Strategy.Action();
+            Strategy.Action(data);
         }
 
         public void IdentifyStrategy(string membership)

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using never_404._404BankServices;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -19,7 +20,7 @@ namespace never_404._404Accounts
             Balance = balance;
         }
 
-        public void Action(params string[] data)
+        public void Action(ActionModel data)
         {
             //I Excecute BankService
         }

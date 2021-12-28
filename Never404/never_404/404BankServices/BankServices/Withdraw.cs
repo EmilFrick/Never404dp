@@ -15,7 +15,7 @@ namespace never_404._404BankServices.BankServices
             ServiceName = "Withdraw";
         }
 
-        public override void Action(params string[] data)
+        public override void Action(ActionModel data)
         {
             Console.WriteLine("I withdrew money from this account.");
         }
