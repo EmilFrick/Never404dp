@@ -67,6 +67,22 @@ namespace never_404._404Users
             }
             return strAccount;
         }
+
+        public bool UserAccountExist(string accountnumber)
+        {
+            bool accountExists = true;
+            List<string> strAccounts = GetStrAccounts();
+            foreach (var a in strAccounts)
+            {
+                if (a == accountnumber)
+                {
+                    return accountExists;
+                }
+            }
+            return !accountExists;
+
+        }
+
         public void SetActiveAccount(string accountNumber)
         {
             this.ActiveAssembledAccount = this.AssembledAccounts.Where(x => x.AccountNumber == Convert.ToInt32(accountNumber)).FirstOrDefault();

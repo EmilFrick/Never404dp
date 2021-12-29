@@ -23,8 +23,7 @@ namespace never_404.Repository
                 case "Manage accounts":
                     return ActiveUser.GetActiveUser().GetStrAccounts();
                 default:
-                    bool validAccount = true;
-                    if (validAccount)
+                    if (ActiveUser.GetActiveUser().UserAccountExist(type))
                     {
                         return ActiveUser.GetActiveUser().ActiveAssembledAccount.ShowServices();
                     }
