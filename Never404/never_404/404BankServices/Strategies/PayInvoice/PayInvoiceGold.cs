@@ -12,9 +12,9 @@ namespace never_404._404BankServices.Strategies.PayInvoice
     {
         public void Action(ActionModel data)
         {
-            decimal silverFee = 0.05m;
+            decimal goldfee = 0.05m;
             Transaction newTransaction = new TransactionModel(data.SenderAccount, data.ReceiverAccount, data.Amount, data.TransactionType).GenerateTransaction();
-            TransactionRepository.GetRepository().CreateTransaction(newTransaction, silverFee);
+            TransactionRepository.GetRepository().CreateTransaction(newTransaction, goldfee);
             Console.WriteLine("I Pay Gold");
         }
     }

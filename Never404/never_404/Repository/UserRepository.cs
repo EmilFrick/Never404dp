@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace never_404.Repository
+﻿namespace never_404.Repository
 {
     public class UserRepository
     {
@@ -24,7 +18,7 @@ namespace never_404.Repository
             return userRepo;
         }
 
-        public  static void CreateUser(User user)
+        public static void CreateUser(User user)
         {
             BankDBContext db = new BankDBContext();
             db.User.Add(user);

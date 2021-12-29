@@ -11,7 +11,7 @@ namespace never_404.Repository
     {
         private static TransactionRepository transactionRepo;
 
-        public TransactionRepository()
+        private TransactionRepository()
         {
 
         }
