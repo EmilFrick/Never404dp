@@ -1,4 +1,5 @@
-﻿using never_404.Repository;
+﻿using never_404._404Accounts;
+using never_404.Repository;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,15 +19,21 @@ namespace never_404._404Users
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public string MembershipType { get; set; }
-        public List<Account> Accounts { get; set; }
+        public AssembledAccount ActiveAssembledAccount { get; set; }
+        public List<AssembledAccount> AssembledAccounts { get; set; }
 
         private ActiveUser()
         {
-            Accounts = new List<Account>();
+            AssembledAccounts = new List<AssembledAccount>();
         }
         public void GetUserAccounts()
         {
-            Accounts = AccountRepository.GetRepository().GetAccounts(this.UserID);
+            List<Account> accountList = AccountRepository.GetRepository().GetAccounts(this.UserID);
+            foreach (Account a in accountList)
+            {
+                AssembledAccount assembleAccount = AccountFactory.AssembleAccount(a.AccountNumber);
+                this.AssembledAccounts.Add(assembleAccount);
+            }
         }
         public static ActiveUser GetActiveUser()
         {
@@ -54,7 +61,7 @@ namespace never_404._404Users
         public List<string> GetStrAccounts()
         {
             List<string> strAccount = new List<string>();
-            foreach (Account a in this.Accounts)
+            foreach (AssembledAccount a in this.AssembledAccounts)
             {
                 strAccount.Add(a.AccountNumber.ToString());
             }

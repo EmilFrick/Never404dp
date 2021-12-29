@@ -28,7 +28,7 @@ namespace never_404.Repository
 
         private static List<string> GetAccountTypes()
         {
-            var accountTypes = ActiveUser.GetActiveUser().Accounts.Select(x => x.AccountType + " Account $" + x.Balance).ToList();
+            var accountTypes = ActiveUser.GetActiveUser().AssembledAccounts.Select(x => x.AccountType + " Account $" + x.Balance).ToList();
             accountTypes.Add("Back");
             return accountTypes;
         }
