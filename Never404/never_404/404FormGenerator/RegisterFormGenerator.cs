@@ -13,7 +13,17 @@ namespace never_404.Repository
 
         public string GenerateForm()
         {
-
+            int input = 0;
+            switch (input)
+            {
+                case 0:
+                    return RegisterUserForm();
+                default:
+                    return "";
+            }
+        }
+        public string RegisterUserForm()
+        {
             UIConsole.AddHeader("Register new user");
 
             var firstName = UIConsole.GetFieldInput("Enter firstname").RequiredMaxLength("Firstname", 20);
@@ -27,7 +37,7 @@ namespace never_404.Repository
 
             //Lägg till i databasen...
 
-            return "User Menu";
+            return "Login";
         }
     }
 }
