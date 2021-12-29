@@ -41,7 +41,7 @@ namespace never_404._404Users
         {
             if (_activeUser == null)
             {
-                return new ActiveUser();
+                _activeUser = new ActiveUser();
             }
 
             return _activeUser;
