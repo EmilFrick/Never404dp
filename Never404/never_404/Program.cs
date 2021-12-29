@@ -13,11 +13,13 @@ namespace never_404
     {
         static void Main(string[] args)
         {
-            int accountNumber = 512885004;
-            AssembledAccount account = AccountFactory.AssembleAccount(accountNumber);
-            //PresentDetails(account);
-            account.ExecuteService("Save", new ActionModel());
-            Console.ReadLine();
+            //int accountNumber = 512885004;
+            //AssembledAccount account = AccountFactory.AssembleAccount(accountNumber);
+            ////PresentDetails(account);
+            //account.ExecuteService("Save", new ActionModel());
+            //Console.ReadLine();
+            var userInterface = new UI();
+            userInterface.ShowForm("404 Bank");
 
         }
     }
