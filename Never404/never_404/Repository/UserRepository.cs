@@ -31,6 +31,7 @@
             user.FirstName = firstName;
             user.LastName = lastName;
             user.Password = pw;
+            user.MembershipType = membershipType;
 
             return user;
         }

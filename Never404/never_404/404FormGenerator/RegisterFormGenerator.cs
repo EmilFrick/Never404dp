@@ -23,7 +23,7 @@ namespace never_404.Repository
             var membershipType = UIConsole.GetFieldInput("Enter Membership type"); //Lägg till extension för membershiptype
 
 
-            UserRepository.CreateUser(UserRepository.GenerateUser(socSecurityNum, firstName, lastName, password, membershipType));
+            UserRepository.GetRepository().GenerateUser(socSecurityNum, firstName, lastName, password, membershipType);
 
             //Lägg till i databasen...
 
