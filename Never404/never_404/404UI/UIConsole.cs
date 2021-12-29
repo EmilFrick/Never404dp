@@ -14,6 +14,7 @@ namespace never_404.Repository
             return Console.ReadLine();
         }
 
+
         public static void AddHeader(string title)
         {
             Console.Clear();
@@ -35,6 +36,11 @@ namespace never_404.Repository
             Console.Write("Your choice: ");
 
             return Console.ReadLine();
+        }
+
+        public static void AddField(string fieldName)
+        {
+            Console.WriteLine($"{fieldName}: ");
         }
     }
 }

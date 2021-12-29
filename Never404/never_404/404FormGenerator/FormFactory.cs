@@ -8,7 +8,7 @@ namespace never_404.Repository
     public static class FormFactory
     {
 
-        public static IFormGenerator GetFormGenerator(string type, string prevType)
+        public static IFormGenerator GetFormGenerator(string type)
         {
             switch (type)
             {
@@ -29,7 +29,7 @@ namespace never_404.Repository
                     return new RegisterFormGenerator(type);
 
                 default:
-                    return new MenuFormGenerator(prevType, type, MenuOptionsGenerator.GetMenuOptions(type));
+                    return new MenuFormGenerator(type, MenuOptionsGenerator.GetMenuOptions(type));
             }
         }
     }

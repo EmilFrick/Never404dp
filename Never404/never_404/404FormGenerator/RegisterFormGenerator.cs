@@ -162,8 +162,12 @@ namespace never_404.Repository
             var lastName = UIConsole.GetFieldInput("Enter lastname").RequiredMaxLength("Firstname", 20);
             var password = UIConsole.GetFieldInput("Enter password").RequiredMaxLength("Password", 20);
             var socSecurityNum = UIConsole.GetFieldInput("Enter SSN").RegexSSN("Social security number");
-            var membershipType = UIConsole.GetFieldInput("Enter Membership type"); //Lägg till extension för membershiptype
-            UserRepository.GetRepository().GenerateUser(socSecurityNum, firstName, lastName, password, membershipType); //Does not work yet:
+
+            var membershipTypes = UserRepository.GetRepository().GetMebershipType();
+            UIConsole.AddField("Select Membership Type");
+            var selectedMembershipIndex = UIConsole.GetSelectedOption(membershipTypes).ConvertToValidNumBetween("Select Membership Type", 1, membershipTypes.Count);
+
+            UserRepository.GetRepository().GenerateUser(socSecurityNum, firstName, lastName, password, membershipTypes[selectedMembershipIndex - 1]); //Does not work yet:
             return "Login";
         }
 

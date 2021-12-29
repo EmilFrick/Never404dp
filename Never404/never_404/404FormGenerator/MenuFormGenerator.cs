@@ -11,14 +11,12 @@ namespace never_404.Repository
     public class MenuFormGenerator : IFormGenerator
     {
         private readonly string _title;
-        private readonly string _prevType;
         private readonly List<string> _options;
 
 
-        public MenuFormGenerator(string prevType, string title, List<string> options)
+        public MenuFormGenerator(string title, List<string> options)
         {
             _title = title == "Logout" ? "Bank 404" : title;
-            _prevType = prevType;
             _options = options;
         }
 
@@ -30,7 +28,7 @@ namespace never_404.Repository
             //If choice == "Log out". Logga isåfall ut activeUser osv.
             //var actionModel = new ActionModel();
             //ActiveUser.GetActiveUser().Accounts;
-            if (_title == "Manage accounts")
+            if (_title == "Manage accounts" && _options[choice - 1] != "Back to main menu")
             {
                 ActiveUser.GetActiveUser().SetActiveAccount(_options[choice - 1]);
             }
@@ -42,7 +40,7 @@ namespace never_404.Repository
             //account.ExecuteService("Save", actionModel);
 
 
-            return _options[choice - 1] == "Back" ? _prevType : _options[choice - 1];
+            return _options[choice - 1] == "Back to main menu" ? "User Menu" : _options[choice - 1];
         }
 
     }

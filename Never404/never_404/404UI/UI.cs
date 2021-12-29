@@ -11,11 +11,9 @@ namespace never_404.Repository
     {
         public void ShowForm(string formType)
         {
-            var prevType = "";
             while (formType != "Exit")
             {
-                IFormGenerator formGenerator = FormFactory.GetFormGenerator(formType, prevType);
-                prevType = formType;
+                IFormGenerator formGenerator = FormFactory.GetFormGenerator(formType);
                 formType = formGenerator.GenerateForm();
             }
         }
