@@ -22,10 +22,15 @@ namespace never_404.Repository
                 //    return 
                 case "Manage accounts":
                     return ActiveUser.GetActiveUser().GetStrAccounts();
-                case "Inside account":
-                    return ActiveUser.GetActiveUser().ActiveAssembledAccount.ShowServices();
                 default:
-                    return new List<string> { "Back" };
+                    if (ActiveUser.GetActiveUser().UserAccountExist(type))
+                    {
+                        return ActiveUser.GetActiveUser().ActiveAssembledAccount.ShowServices();
+                    }
+                    else
+                    {
+                        return new List<string> { "Back" };
+                    }
             }
         }
 

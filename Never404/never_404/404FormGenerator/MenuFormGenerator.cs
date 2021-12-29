@@ -33,7 +33,6 @@ namespace never_404.Repository
             if (_title == "Manage accounts")
             {
                 ActiveUser.GetActiveUser().SetActiveAccount(_options[choice - 1]);
-                return "Inside account";
             }
 
 

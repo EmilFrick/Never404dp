@@ -21,7 +21,6 @@ namespace never_404._404BankServices.BankServices
         {
             Transaction newTransaction = new TransactionModel(data.SenderAccount, data.ReceiverAccount, data.Amount, data.TransactionType).GenerateTransaction();
             TransactionRepository.GetRepository().CreateTransaction(newTransaction);
-            Console.WriteLine("I transfered money from this account.");
         }
         
     }
