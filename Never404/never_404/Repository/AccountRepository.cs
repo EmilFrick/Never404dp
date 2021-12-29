@@ -8,7 +8,7 @@ namespace never_404.Repository
 {
     public class AccountRepository
     {
-        private static AccountRepository AccountRepo;
+        private static AccountRepository accountRepo;
 
         private AccountRepository()
         {
@@ -17,11 +17,11 @@ namespace never_404.Repository
 
         public static AccountRepository GetRepository()
         {
-            if (AccountRepo == null)
+            if (accountRepo == null)
             {
-                AccountRepo = new AccountRepository();
+                accountRepo = new AccountRepository();
             }
-            return AccountRepo;
+            return accountRepo;
         }
 
         public Account GetAccount(int accountNumber)
@@ -29,5 +29,27 @@ namespace never_404.Repository
             BankDBContext db = new BankDBContext();
             return db.Account.Where(x => x.AccountNumber == accountNumber).FirstOrDefault();
         }
+        
+        public List<Account> GetAccounts(int userId)
+        {   
+            BankDBContext db = new BankDBContext();
+            return db.Account.Where(x => x.UserID == userId).ToList();
+        }
+        static void CreateAccount(Account account)
+        {
+            BankDBContext db = new BankDBContext();
+            db.Account.Add(account);
+            db.SaveChanges();
+        }
+        //static Account GenerateAccont(int accountNum, int userId, string accountType, decimal balance)
+        //{
+        //    Account account = new Account();
+        //    account.AccountNumber = accountNum;
+        //    account.UserID = userId;
+        //    account.AccountType = accountType;
+        //    account.Balance = balance;
+
+        //    return account;
+        //}
     }
 }
