@@ -14,9 +14,11 @@ namespace never_404.Repository
             {
                 case "Login":
                     return new LogInFormGenerator();
-
+                case "Save":
+                case "Create Transaction":
+                case "Create Account":
                 case "Register User":
-                    return new RegisterFormGenerator(new UserRegisterViewModel());
+                    return new RegisterFormGenerator(type);
 
                 default:
                     return new MenuFormGenerator(prevType, type, MenuOptionsGenerator.GetMenuOptions(type));

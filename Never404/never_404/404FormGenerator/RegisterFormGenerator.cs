@@ -1,22 +1,24 @@
-﻿using System;
+﻿using Microsoft.Win32;
+using System;
 
 namespace never_404.Repository
 {
     public class RegisterFormGenerator : IFormGenerator
     {
-        private readonly UserRegisterViewModel _userRegisterViewModel;
+        private readonly string type;
 
-        public RegisterFormGenerator(UserRegisterViewModel userRegisterViewModel)
+        public RegisterFormGenerator(string type)
         {
-            _userRegisterViewModel = userRegisterViewModel;
+            this.type = type; 
         }
 
         public string GenerateForm()
         {
-            int input = 0;
-            switch (input)
-            {
-                case 0:
+            switch (this.type)
+{
+                case "Register User":
+                    return RegisterUserForm();
+                case "Save":
                     return RegisterUserForm();
                 default:
                     return "";
@@ -32,10 +34,7 @@ namespace never_404.Repository
             var socSecurityNum = UIConsole.GetFieldInput("Enter SSN").RegexSSN("Social security number");
             var membershipType = UIConsole.GetFieldInput("Enter Membership type"); //Lägg till extension för membershiptype
 
-
-            UserRepository.GetRepository().GenerateUser(socSecurityNum, firstName, lastName, password, membershipType);
-
-            //Lägg till i databasen...
+            UserRepository.GetRepository().GenerateUser(socSecurityNum, firstName, lastName, password, membershipType); //Does not work yet:
 
             return "Login";
         }
