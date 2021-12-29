@@ -56,7 +56,10 @@ namespace never_404.Repository
         {
             //Account number to transfer:
             //Amount:
-            throw new NotImplementedException();
+            UIConsole.AddHeader("Transfer");
+            Console.WriteLine("Transfer-Form fired");
+            Console.ReadLine();
+            return "User Menu";
         }
 
         private string RegisterPayInvoiceForm()
@@ -64,14 +67,20 @@ namespace never_404.Repository
             //PayInvoice
             //Account number to Pay invoice:
             //Amount:
-            throw new NotImplementedException();
+            UIConsole.AddHeader("Invoice");
+            Console.WriteLine("Paying Invoice Fired");
+            Console.ReadLine();
+            return "User Menu";
         }
 
         private string RegisterLoanForm()
         {
             //Loan
             //Amount to borrow:
-            throw new NotImplementedException();
+            UIConsole.AddHeader("Loan");
+            Console.WriteLine("Taking a Loan Fired");
+            Console.ReadLine();
+            return "User Menu";
         }
 
         private string RegisterForeignTransferForm()
@@ -80,7 +89,10 @@ namespace never_404.Repository
             //Foreginaccount number:
             //Amount: 
             //Message:
-            throw new NotImplementedException();
+            UIConsole.AddHeader("Foreign Transfer");
+            Console.WriteLine("Foreign Transfer fired");
+            Console.ReadLine();
+            return "User Menu";
         }
 
         private string RegisterForeignPaymentForm()
@@ -89,7 +101,10 @@ namespace never_404.Repository
             //Foreginaccount number:
             //Amount: 
             //Message:
-            throw new NotImplementedException();
+            UIConsole.AddHeader("Foreign Payment");
+            Console.WriteLine("Foreign Payment fired");
+            Console.ReadLine();
+            return "User Menu";
         }
 
         private string RegisterWithdrawtForm()
@@ -97,7 +112,10 @@ namespace never_404.Repository
             //Withdraw
             //Accountnumber to deposit:
             //amount:
-            throw new NotImplementedException();
+            UIConsole.AddHeader("Withdraw");
+            Console.WriteLine("Withdraw Fired");
+            Console.ReadLine();
+            return "User Menu";
         }
 
         private string RegisterDepositForm()
@@ -105,7 +123,9 @@ namespace never_404.Repository
             //Deposit
             //Accountnumber to deposit:
             //amount:
-            throw new NotImplementedException();
+            UIConsole.AddHeader("Deposit");
+            Console.WriteLine("Withdraw Fired");
+            return "User Menu";
         }
 
         private string RegisterUserForm()
@@ -128,22 +148,5 @@ namespace never_404.Repository
             Console.ReadLine();
             return "User Menu";
         }
-
-
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 }

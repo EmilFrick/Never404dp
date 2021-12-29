@@ -30,8 +30,7 @@ namespace never_404._404Accounts
             switch (account.AccountType)
             {
                 case "Saving":
-                    ab.AddSave();
-                    return ab.FinalizeAccount();
+                    return ab.AddApplyInterest().AddDeposit().AddForeignPayment().AddForeignTransfer().AddInvestment().AddInvoice().AddLoan().AddTransfer().AddWithdraw().FinalizeAccount();
 
                 case "Private":
                     ab.AddSave();
@@ -66,8 +65,7 @@ namespace never_404._404Accounts
                     return ab.FinalizeAccount();
 
                 case "Bank":
-                    ab.AddSave();
-                    return ab.FinalizeAccount();
+                    return ab.AddApplyInterest().AddDeposit().AddForeignPayment().AddForeignTransfer().AddInvestment().AddInvoice().AddLoan().AddTransfer().AddWithdraw().FinalizeAccount();
 
                 default:
                     return baseAccount;
