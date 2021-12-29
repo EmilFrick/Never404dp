@@ -14,6 +14,7 @@ namespace never_404.Repository
             {
                 case "Login":
                     return new LogInFormGenerator();
+                case "Add new account":
                 case "Save":
                 case "Create Transaction":
                 case "Create Account":
