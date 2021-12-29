@@ -19,6 +19,8 @@ namespace never_404.Repository
                     return new List<string> { "Personal details", "Manage accounts", "Add new account", "Logout" };
                 case "Manage accounts":
                     return ActiveUser.GetActiveUser().GetStrAccounts();
+                //case "Inside account":
+                //    return ActiveUser.GetActiveUser().ActiveAccount.Show...
                 default:
                     return new List<string> { "Back" };
             }

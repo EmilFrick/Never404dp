@@ -24,15 +24,15 @@
             db.User.Add(user);
             db.SaveChanges();
         }
-        //public static User GenerateUser(string sSN, string firstName, string lastName, string pw)
-        //{
-        //    User user = new User();
-        //    user.SSN = sSN;
-        //    user.FirstName = firstName;
-        //    user.LastName = lastName;
-        //    user.Password = pw;
+        public static User GenerateUser(string sSN, string firstName, string lastName, string pw, string membershipType)
+        {
+            User user = new User();
+            user.SSN = sSN;
+            user.FirstName = firstName;
+            user.LastName = lastName;
+            user.Password = pw;
 
-        //    return user;
-        //}
+            return user;
+        }
     }
 }

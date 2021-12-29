@@ -20,11 +20,10 @@ namespace never_404.Repository
             var lastName = UIConsole.GetFieldInput("Enter lastname").RequiredMaxLength("Firstname", 20);
             var password = UIConsole.GetFieldInput("Enter password").RequiredMaxLength("Password", 20);
             var socSecurityNum = UIConsole.GetFieldInput("Enter SSN").RegexSSN("Social security number");
+            var membershipType = UIConsole.GetFieldInput("Enter Membership type"); //Lägg till extension för membershiptype
 
-            _userRegisterViewModel.FirstName = firstName;
-            _userRegisterViewModel.LastName = lastName;
-            _userRegisterViewModel.SSN = socSecurityNum;
-            _userRegisterViewModel.Password = password;
+
+            UserRepository.CreateUser(UserRepository.GenerateUser(socSecurityNum, firstName, lastName, password, membershipType));
 
             //Lägg till i databasen...
 
