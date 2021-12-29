@@ -18,13 +18,13 @@
             return userRepo;
         }
 
-        public static void CreateUser(User user)
+        public void CreateUser(User user)
         {
             BankDBContext db = new BankDBContext();
             db.User.Add(user);
             db.SaveChanges();
         }
-        public static User GenerateUser(string sSN, string firstName, string lastName, string pw, string membershipType)
+        public User GenerateUser(string sSN, string firstName, string lastName, string pw, string membershipType)
         {
             User user = new User();
             user.SSN = sSN;

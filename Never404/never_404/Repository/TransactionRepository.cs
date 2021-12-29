@@ -50,7 +50,7 @@ namespace never_404.Repository
             db.Transaction.Add(transaction);
             db.SaveChanges();
         }
-        public  void CreateTransaction(Transaction transaction, decimal fee)
+        public void CreateTransaction(Transaction transaction, decimal fee)
         {
             BankDBContext db = new BankDBContext();
             var bankFee = (transaction.Amount * fee) - transaction.Amount;
