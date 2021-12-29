@@ -26,11 +26,9 @@ namespace never_404.Repository
 
             //If choice == "Log out". Logga isåfall ut activeUser osv.
 
-            var returnValue = _options[choice - 1];
-            if (returnValue == "Back")
-                return _prevType;
+            
 
-            return _options[choice - 1];
+            return _options[choice - 1] == "Back" ? _prevType : _options[choice - 1];
         }
 
     }

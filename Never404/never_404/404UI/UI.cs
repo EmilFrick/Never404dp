@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using never_404._404Users;
 
 namespace never_404.Repository
 {
@@ -10,9 +11,9 @@ namespace never_404.Repository
     {
         public void ShowForm(string formType)
         {
+            var prevType = "";
             while (formType != "Exit")
             {
-                var prevType = "";
                 IFormGenerator formGenerator = FormFactory.GetFormGenerator(formType, prevType);
                 prevType = formType;
                 formType = formGenerator.GenerateForm();

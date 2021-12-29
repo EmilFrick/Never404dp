@@ -6,11 +6,10 @@ using System.Linq;
 
 namespace never_404.Repository
 {
-    public class MenuOptionsGenerator
+    public static class MenuOptionsGenerator
     {
-        public List<string> GetMenuOptions(string type)
+        public static List<string> GetMenuOptions(string type)
         {
-            var kristoffer = ActiveUser.GetActiveUser();
             switch (type)
             {
                 case "404 Bank":
@@ -19,10 +18,17 @@ namespace never_404.Repository
                 case "User Menu":
                     return new List<string> { "Personal details", "Manage accounts", "Add new account", "Logout" };
                 case "Manage accounts":
-                    return kristoffer.Accounts.Select(x => x.AccountType).ToList();
+                    return GetAccountTypes();
                 default:
                     return new List<string> { "Back" };
             }
+        }
+
+        private static List<string> GetAccountTypes()
+        {
+            var accountTypes = ActiveUser.GetActiveUser().Accounts.Select(x => x.AccountType + " Account $" + x.Balance).ToList();
+            accountTypes.Add("Back");
+            return accountTypes;
         }
     }
 }

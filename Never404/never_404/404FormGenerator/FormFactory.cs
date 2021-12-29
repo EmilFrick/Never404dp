@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using never_404;
+using never_404._404Users;
 
 namespace never_404.Repository
 {
@@ -9,17 +10,16 @@ namespace never_404.Repository
         
         public static IFormGenerator GetFormGenerator(string type, string prevType)
         {
-            var menuOptionsGenerator = new MenuOptionsGenerator();
             switch (type)
             {
                 case "Login":
-                    return new LogInFormGenerator(new UserLogInViewModel());
+                    return new LogInFormGenerator();
 
                 case "Register User":
                     return new RegisterFormGenerator(new UserRegisterViewModel());
 
                 default:
-                    return new MenuFormGenerator(type,prevType, menuOptionsGenerator.GetMenuOptions(type));
+                    return new MenuFormGenerator(prevType, type, MenuOptionsGenerator.GetMenuOptions(type));
             }
         }
     }
