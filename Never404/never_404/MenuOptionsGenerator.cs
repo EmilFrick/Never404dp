@@ -18,7 +18,7 @@ namespace never_404.Repository
                 case "User Menu":
                     return new List<string> { "Personal details", "Manage accounts", "Add new account", "Logout" };
                 case "Manage accounts":
-                    return GetAccountTypes();
+                    return ActiveUser.GetActiveUser().GetStrAccounts();
                 default:
                     return new List<string> { "Back" };
             }

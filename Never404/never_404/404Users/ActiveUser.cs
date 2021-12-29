@@ -1,4 +1,5 @@
-﻿using System;
+﻿using never_404.Repository;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,7 +9,7 @@ namespace never_404._404Users
 {
     public class ActiveUser
     {
-        
+
         private static ActiveUser _activeUser;
 
 
@@ -19,23 +20,13 @@ namespace never_404._404Users
         public string MembershipType { get; set; }
         public List<Account> Accounts { get; set; }
 
-
         private ActiveUser()
         {
             Accounts = new List<Account>();
         }
-        public void GetUserAccounts(int userid)
+        public void GetUserAccounts()
         {
-            Accounts = Repository.AccountRepository.GetRepository().GetAccounts(userid);
-        }
-        public ActiveUser(int userid, string ssn, string firstName, string lastName, string membership, List<Account> accounts)
-        {
-            this.UserID = userid;
-            this.SSN = ssn;
-            this.FirstName = firstName;
-            this.LastName = lastName;
-            this.MembershipType = membership;
-            this.Accounts = accounts;
+            Accounts = AccountRepository.GetRepository().GetAccounts(this.UserID);
         }
         public static ActiveUser GetActiveUser()
         {
@@ -46,6 +37,29 @@ namespace never_404._404Users
 
             return _activeUser;
         }
-        
+        public ActiveUser InitiateActiveUser(int userid, string ssn, string firstname, string lastname, string membership)
+        {
+            SetActiveUser(userid, ssn, firstname, lastname, membership);
+            GetUserAccounts();
+            return _activeUser;
+        }
+        public void SetActiveUser(int userid, string ssn, string firstname, string lastname, string membership)
+        {
+            this.UserID = userid;
+            this.SSN = ssn;
+            this.FirstName = firstname;
+            this.LastName = lastname;
+            this.MembershipType = membership;
+        }
+        public List<string> GetStrAccounts()
+        {
+            List<string> strAccount = new List<string>();
+            foreach (Account a in this.Accounts)
+            {
+                strAccount.Add(a.AccountNumber.ToString());
+            }
+            return strAccount;
+        }
+
     }
 }

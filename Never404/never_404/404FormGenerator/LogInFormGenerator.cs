@@ -23,18 +23,12 @@ namespace never_404.Repository
                 var accounts = db.Account.Where(y => y.UserID == id).ToList();
                 if (user == null)
                     return "Login";
-                
-                var activeUser = ActiveUser.GetActiveUser();
-                activeUser.UserID = user.UserID;
-                activeUser.SSN = user.SSN;
-                activeUser.FirstName = user.FirstName;
-                activeUser.LastName = user.LastName;
-                activeUser.MembershipType = user.MembershipType;
-                activeUser.Accounts = accounts;
+                else
+                {
+                    var activeUser = ActiveUser.GetActiveUser().InitiateActiveUser(user.UserID, user.SSN, user.FirstName, user.LastName, user.MembershipType);
+                    return "User Menu";
+                }
 
-               
-                return "User Menu";
-                
             }
             catch (Exception ex)
             {
