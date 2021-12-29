@@ -1,4 +1,7 @@
-﻿namespace never_404.Repository
+﻿using System.Collections.Generic;
+using System.Linq;
+
+namespace never_404.Repository
 {
     public class UserRepository
     {
@@ -34,6 +37,17 @@
             user.MembershipType = membershipType;
 
             return user;
+        }
+        public List<string> GetMebershipType()
+        {
+            List<string> membershipType = new List<string>();
+            BankDBContext db = new BankDBContext();
+            var list = db.MembershipType.Where(x => x.MembershipTypeName != "Bank");
+            foreach (var name in list)
+            {
+                membershipType.Add(name.MembershipTypeName);
+            }
+            return membershipType;
         }
     }
 }

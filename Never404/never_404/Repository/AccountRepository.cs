@@ -52,5 +52,17 @@ namespace never_404.Repository
 
             return account;
         }
+
+        public List<string> GetAccountType()
+        {
+            List<string> accountType = new List<string>();
+            BankDBContext db = new BankDBContext();
+            var list = db.AccountType.Where(x => x.AccountTypeName != "Bank");
+            foreach (var name in list)
+            {
+                accountType.Add(name.AccountTypeName);
+            }
+            return accountType;
+        }
     }
 }
