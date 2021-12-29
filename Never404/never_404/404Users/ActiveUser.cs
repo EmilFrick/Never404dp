@@ -67,6 +67,13 @@ namespace never_404._404Users
             }
             return strAccount;
         }
-
+        public void SetActiveAccount(string accountNumber)
+        {
+            this.ActiveAssembledAccount = this.AssembledAccounts.Where(x => x.AccountNumber == Convert.ToInt32(accountNumber)).FirstOrDefault();
+        }
+        public void UserLogout()
+        {
+            _activeUser = null;
+        }
     }
 }

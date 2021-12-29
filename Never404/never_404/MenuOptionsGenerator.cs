@@ -14,13 +14,16 @@ namespace never_404.Repository
             {
                 case "404 Bank":
                 case "Logout":
+                    ActiveUser.GetActiveUser().UserLogout();
                     return new List<string> { "Login", "Register User", "Exit" };
                 case "User Menu":
                     return new List<string> { "Personal details", "Manage accounts", "Add new account", "Logout" };
+                //case "Register User":
+                //    return 
                 case "Manage accounts":
                     return ActiveUser.GetActiveUser().GetStrAccounts();
-                //case "Inside account":
-                //    return ActiveUser.GetActiveUser().ActiveAccount.Show...
+                case "Inside account":
+                    return ActiveUser.GetActiveUser().ActiveAssembledAccount.ShowServices();
                 default:
                     return new List<string> { "Back" };
             }
