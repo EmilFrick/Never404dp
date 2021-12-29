@@ -30,16 +30,16 @@ namespace never_404.Repository
             //If choice == "Log out". Logga isåfall ut activeUser osv.
             //var actionModel = new ActionModel();
             //ActiveUser.GetActiveUser().Accounts;
-            //if (_title == "Manage accounts")
-            //{
-            //    ActiveUser.GetActiveUser().ActiveAccount = _options[choice - 1];
-            //    return "Inside account";
-            //}
-                
+            if (_title == "Manage accounts")
+            {
+                ActiveUser.GetActiveUser().SetActiveAccount(_options[choice - 1]);
+                return "Inside account";
+            }
+
 
 
             //AssembledAccount account = AccountFactory.AssembleAccount(Convert.ToInt32(_title));
-            
+
             //account.ExecuteService("Save", actionModel);
 
 
