@@ -1,5 +1,7 @@
 ﻿using Microsoft.Win32;
+using never_404._404BankServices;
 using never_404._404BankServices.BankServices;
+using never_404._404Users;
 using System;
 
 namespace never_404.Repository
@@ -54,10 +56,34 @@ namespace never_404.Repository
 
         private string RegisterTransferForm()
         {
-            //Account number to transfer:
-            //Amount:
             UIConsole.AddHeader("Transfer");
-            Console.WriteLine("Transfer-Form fired");
+         
+            //Declaring all vars for transaction
+            int sender = ActiveUser.GetActiveUser().ActiveAssembledAccount.AccountNumber;
+            string receiverStr = UIConsole.GetFieldInput("Enter account you wish to transer to:"); //cant transfer to same account you're transfering from. convert to Into
+            int receiver = Convert.ToInt32(receiverStr);
+            string amountStr = UIConsole.GetFieldInput("Enter Amount:");
+            decimal amount = Convert.ToDecimal(amountStr);
+            string transactionType = "Transfer";
+
+            if (AccountRepository.GetRepository().GetAccount(receiver) == null)
+            {
+                int othersAccount = 512885027;
+                receiver = othersAccount;
+            }
+
+            //Creating Action Model
+            ActionModel am = new ActionModel();
+            am.SenderAccount = sender;
+            am.ReceiverAccount = receiver;
+            am.Amount = amount;
+            am.TransactionType = transactionType;
+
+            //Executing transaction
+            ActiveUser.GetActiveUser().ActiveAssembledAccount.ExecuteService("Transfer", am);
+
+            
+            Console.WriteLine("Transfer succesful");
             Console.ReadLine();
             return "User Menu";
         }
