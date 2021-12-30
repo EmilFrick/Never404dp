@@ -21,11 +21,11 @@ namespace never_404.Repository
                 //case "Register User":
                 //    return 
                 case "Manage accounts":
-                    return ActiveUser.GetActiveUser().GetStrAccounts().AddOptionBackToMainMenu();
+                    return ActiveUser.GetActiveUser().GetStrAccounts().AddOptions("Back to main menu");
                 default:
                     if (ActiveUser.GetActiveUser().UserAccountExist(type))
                     {
-                        return ActiveUser.GetActiveUser().ActiveAssembledAccount.ShowServices().AddOptionBackToMainMenu();
+                        return ActiveUser.GetActiveUser().ActiveAssembledAccount.ShowServices().AddOptions("Show Transactions", "Back to main menu");
                     }
                     else
                     {

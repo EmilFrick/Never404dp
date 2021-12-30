@@ -21,11 +21,6 @@ namespace never_404.Repository
             return transactionRepo;
         }
 
-        public Account GetTransaction(int accountNumber)
-        {
-            BankDBContext db = new BankDBContext();
-            return db.Account.Where(x => x.AccountNumber == accountNumber).FirstOrDefault();
-        }
         public void CreateTransaction(Transaction transaction, decimal fee = 0)
         {
             BankDBContext db = new BankDBContext();
