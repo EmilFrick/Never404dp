@@ -1,6 +1,7 @@
 ﻿using Microsoft.Win32;
 using never_404._404BankServices;
 using never_404._404BankServices.BankServices;
+using never_404._404FormGenerator;
 using never_404._404Users;
 using System;
 
@@ -17,6 +18,9 @@ namespace never_404.Repository
 
         public string GenerateForm()
         {
+            ActionModel amRef = new ActionModel();
+            InquiryBuilder ib = new InquiryBuilder(amRef);
+
             switch (this.type)
             {
                 case "Deposit":
@@ -38,7 +42,10 @@ namespace never_404.Repository
                     return RegisterPayInvoiceForm();
 
                 case "Transfer":
-                    return RegisterTransferForm();
+                    amRef.TransactionType = "Transfer";
+                    UIConsole.AddHeader(amRef.TransactionType);
+                    ActiveUser.GetActiveUser().ActiveAssembledAccount.ExecuteService(amRef.TransactionType, amRef);
+                    return "User Menu";
 
                 case "Register User":
                     return RegisterUserForm();
@@ -54,34 +61,26 @@ namespace never_404.Repository
             }
         }
 
+
+
         private string RegisterTransferForm()
         {
             UIConsole.AddHeader("Transfer");
             ActionModel am = new ActionModel();
-            UIConsole.GetFieldInput("Enter account number you wish to transer to:")     //Receiver
-                     .ReceiverInquiry(am);
-
+         //   UIConsole.GetFieldInput("Enter account number you wish to transer to:")     //Receiver
+         //            .ReceiverInquiry(am);
+         //   UIConsole.GetFieldInput("Enter account number you wish to transer to:")     //Receiver
+         //.ReceiverInquiry(am);
 
 
             //Declaring all vars for transaction
-            int sender = ActiveUser.GetActiveUser().ActiveAssembledAccount.AccountNumber;
-            string receiverStr; //cant transfer to same account you're transfering from. convert to Into
-            int receiver = Convert.ToInt32(receiverStr);
-            string amountStr = UIConsole.GetFieldInput("Enter Amount:");
-            decimal amount = Convert.ToDecimal(amountStr);
-            string transactionType = "Transfer";
 
-            if (AccountRepository.GetRepository().GetAccount(receiver) == null)
-            {
-                int othersAccount = 512885027;
-                receiver = othersAccount;
-            }
 
             //Creating Action Model
-            am.SenderAccount = sender;
-            am.ReceiverAccount = receiver;
-            am.Amount = amount;
-            am.TransactionType = transactionType;
+            //am.SenderAccount = sender;
+            //am.ReceiverAccount = receiver;
+            //am.Amount = amount;
+            //am.TransactionType = transactionType;
 
             //Executing transaction
             ActiveUser.GetActiveUser().ActiveAssembledAccount.ExecuteService("Transfer", am);

@@ -132,26 +132,6 @@ namespace never_404.Repository
 
         }
 
-        public static void ReceiverInquiry(this string input, ActionModel amRef)
-        {
-
-            int receiverAccountNumber = input.ReceiverAccountValidation();
-            string receivername;
-            Account result = AccountRepository.GetRepository().GetAccount(receiverAccountNumber);
-            if (result == null)
-            {
-                receiverAccountNumber = StoredAccounts.GetOthers().AccountNumber;
-                receivername = UIConsole.GetFieldInput("Enter Receiver Name").RequiredMaxLength("Receiver Name", 20);
-            }
-            else
-            {
-                receiverAccountNumber = result.AccountNumber;
-                User resultUserDetails = UserRepository.GetRepository().GetUser(result.UserID.GetValueOrDefault());
-                receivername = $"{resultUserDetails.FirstName} {resultUserDetails.LastName}";
-            }
-            
-            amRef.ReceiverAccount = receiverAccountNumber;
-            amRef.ReceiverLabel = receivername;
-        }
+       
     }
 }
