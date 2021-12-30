@@ -14,7 +14,7 @@ namespace never_404._404BankServices.Strategies.ForeignTransfer
         {
             int bankFixedRate = 100;
             Transaction newTransaction = new TransactionModel(data.SenderAccount, data.ReceiverAccount, data.Amount, data.TransactionType).GenerateTransaction();
-            TransactionRepository.GetRepository().TransactionFixedRate(newTransaction, bankFixedRate);
+            TransactionRepository.GetRepository().CreateTransaction(newTransaction, bankFixedRate);
             Console.WriteLine("Foreign transfer with Gold");
         }
     }
