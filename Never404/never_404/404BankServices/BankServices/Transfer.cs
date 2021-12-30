@@ -19,8 +19,8 @@ namespace never_404._404BankServices.BankServices
 
         public override void Action(ActionModel data)
         {
-            Transaction newTransaction = new TransactionModel(data.SenderAccount, data.ReceiverAccount, data.Amount, data.TransactionType).GenerateTransaction();
-            TransactionRepository.GetRepository().CreateTransaction(newTransaction);
+            //Transaction newTransaction = new TransactionModel(data.SenderAccount, data.ReceiverAccount, data.Amount, data.TransactionType).GenerateTransaction();
+            //TransactionRepository.GetRepository().CreateTransaction(newTransaction);
         }
         
     }

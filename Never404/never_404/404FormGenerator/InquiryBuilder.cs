@@ -17,16 +17,24 @@ namespace never_404._404FormGenerator
         {
             _actionModelReference = amRef;
         }
-        
-        public void ReceiverInquiry()
+
+
+        public InquiryBuilder ForeignReceiverInquiry()
         {
-            int receiverAccountNumber = UIConsole.GetFieldInput("Enter account number you wish to transer to:").ReceiverAccountValidation();
+            _actionModelReference.ReceiverAccount = StoredAccounts.GetOthers().AccountNumber;
+            _actionModelReference.ReceiverLabel = UIConsole.GetFieldInput("Enter Receiver Name").RequiredMaxLength("Receiver Name", 20);
+            return this;
+        }
+
+        public InquiryBuilder ReceiverInquiry()
+        {
+            int receiverAccountNumber = UIConsole.GetFieldInput("Enter account number you wish to transer to").ReceiverAccountValidation();
             string receivername;
             Account result = AccountRepository.GetRepository().GetAccount(receiverAccountNumber);
             if (result == null)
             {
                 receiverAccountNumber = StoredAccounts.GetOthers().AccountNumber;
-                receivername = UIConsole.GetFieldInput("Enter Receiver Name").RequiredMaxLength("Receiver Name", 20);
+                receivername = UIConsole.GetFieldInput("Enter Receiver Account Number").RequiredMaxLength("Receiver Account Number", 20);
             }
             else
             {
@@ -37,6 +45,14 @@ namespace never_404._404FormGenerator
 
             _actionModelReference.ReceiverAccount = receiverAccountNumber;
             _actionModelReference.ReceiverLabel = receivername;
+            return this;
+        }
+
+        public InquiryBuilder AmountInquiry()
+        {
+            int amount = UIConsole.GetFieldInput("Enter Amount:").ConvertToValidNumBetween("Amount", 20, 100000);
+            _actionModelReference.Amount = amount;
+            return this;
         }
     }
 }

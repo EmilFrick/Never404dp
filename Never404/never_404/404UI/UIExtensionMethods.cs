@@ -116,7 +116,7 @@ namespace never_404.Repository
 
         public static int ReceiverAccountValidation(this string input)
         {
-            int validInput = input.ConvertToValidNumBetween("Receiver", 9999, 1000000000);
+            int validInput = input.ConvertToValidNumBetween("Receiver Account Number", 9999, 1000000000);
 
             while (true)
             {
@@ -126,8 +126,8 @@ namespace never_404.Repository
                 }
 
                 Console.WriteLine("You are not able to make a transaction to an account that you're sending from:");
-                Console.Write("Receiver: ");
-                validInput = Console.ReadLine().ConvertToValidNumBetween("Receiver", 9999, 1000000000);
+                Console.Write("Receiver Account Number: ");
+                validInput = Console.ReadLine().ConvertToValidNumBetween("Receiver Account Number", 9999, 1000000000);
             }
 
         }

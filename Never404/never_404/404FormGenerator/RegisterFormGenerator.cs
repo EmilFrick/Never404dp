@@ -18,78 +18,48 @@ namespace never_404.Repository
 
         public string GenerateForm()
         {
-            ActionModel amRef = new ActionModel();
-            InquiryBuilder ib = new InquiryBuilder(amRef);
-
+            ActionModel am = new ActionModel();
+            InquiryBuilder ib = new InquiryBuilder(am);
+            am.TransactionType = type;
+            UIConsole.AddHeader(type);
+            
             switch (this.type)
             {
                 case "Deposit":
-                    return RegisterDepositForm();
+                    break;
 
                 case "Withdraw":
-                    return RegisterWithdrawtForm();
+                    break;
 
                 case "Foregin Payment":
-                    return RegisterForeignPaymentForm();
+                    break;
 
                 case "Foreign Transfer":
-                    return RegisterForeignTransferForm();
+                    break;
 
                 case "Loan":
-                    return RegisterLoanForm();
+                    break;
 
                 case "Pay Invoice":
-                    return RegisterPayInvoiceForm();
+                    break;
 
                 case "Transfer":
-                    amRef.TransactionType = "Transfer";
-                    UIConsole.AddHeader(amRef.TransactionType);
-                    ActiveUser.GetActiveUser().ActiveAssembledAccount.ExecuteService(amRef.TransactionType, amRef);
-                    return "User Menu";
+                    ib.ReceiverInquiry().AmountInquiry();
+                    break;
 
                 case "Register User":
                     return RegisterUserForm();
 
-                case "Save":
-                    return RegisterUserForm();
-
                 case "Add new account":
                     return RegisterAccountForm();
-
-                default:
-                    return "Form not implemented!";
             }
-        }
-
-
-
-        private string RegisterTransferForm()
-        {
-            UIConsole.AddHeader("Transfer");
-            ActionModel am = new ActionModel();
-         //   UIConsole.GetFieldInput("Enter account number you wish to transer to:")     //Receiver
-         //            .ReceiverInquiry(am);
-         //   UIConsole.GetFieldInput("Enter account number you wish to transer to:")     //Receiver
-         //.ReceiverInquiry(am);
-
-
-            //Declaring all vars for transaction
-
-
-            //Creating Action Model
-            //am.SenderAccount = sender;
-            //am.ReceiverAccount = receiver;
-            //am.Amount = amount;
-            //am.TransactionType = transactionType;
-
-            //Executing transaction
-            ActiveUser.GetActiveUser().ActiveAssembledAccount.ExecuteService("Transfer", am);
-
             
-            Console.WriteLine("Transfer succesful");
-            Console.ReadLine();
-            return "User Menu";
+                ActiveUser.GetActiveUser().ActiveAssembledAccount.ExecuteService(am.TransactionType, am);
+                Console.WriteLine($"{am.TransactionType} successful");
+                Console.ReadLine();
+                return "User Menu";
         }
+
 
         private string RegisterPayInvoiceForm()
         {
