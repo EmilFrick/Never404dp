@@ -42,5 +42,17 @@ namespace never_404.Repository
         {
             Console.WriteLine($"{fieldName}: ");
         }
+
+        public static void AddFields(params string [] fields)
+        {
+            var sb = new StringBuilder();
+            foreach (var field in fields)
+            {
+                sb.AppendLine(field);
+            }
+
+            Console.WriteLine(sb);
+            Console.ReadLine();
+        }
     }
 }

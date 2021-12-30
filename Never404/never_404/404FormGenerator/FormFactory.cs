@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using never_404;
+using never_404._404FormGenerator;
 using never_404._404Users;
 
 namespace never_404.Repository
@@ -14,6 +15,8 @@ namespace never_404.Repository
             {
                 case "Login":
                     return new LogInFormGenerator();
+                case "Personal details":
+                    return new PersonalDetailsFormGenerator();
                 case "Transfer":
                 case "Invoice":
                 case "Loan":
