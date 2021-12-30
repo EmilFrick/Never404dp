@@ -1,4 +1,5 @@
-﻿using System;
+﻿using never_404._404Users;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -22,6 +23,51 @@ namespace never_404.Repository
                 specificationRepo = new SpecificationRepository();
             }
             return specificationRepo;
+        }
+
+        public void CreateSpecification(Transaction transaction)
+        {
+            BankDBContext db = new BankDBContext();
+            Specification specificationReceiver = null;
+            Specification specificationSender = null;
+            int receiver = transaction.ReceiverAccount.GetValueOrDefault();
+            int sender = transaction.SenderAccount.GetValueOrDefault();
+
+            if (AccountRepository.GetRepository().GetAccount(receiver).AccountType != "Bank")
+            {
+                specificationReceiver = GenerateSpecification(transaction.TransactionID, receiver);
+            }
+            if (AccountRepository.GetRepository().GetAccount(sender).AccountType != "Bank")
+            {
+                specificationSender = GenerateSpecification(transaction.TransactionID, sender);
+            }
+
+            db.Specification.Add(specificationReceiver);
+            db.Specification.Add(specificationSender);
+            db.SaveChanges();
+        }
+
+        private Specification GenerateSpecification(int transactionId, int specOwner)
+        {
+            Specification specification = new Specification();
+            specification.SpecificationOwner = specOwner;
+            specification.TransactionID = transactionId;
+            specification.Sender = "Label - sender";
+            specification.Receiver = "Label - receiver";
+
+            return specification;
+        }
+
+        public List<Specification> GetSpecifications()
+        {
+            List<Specification> specificiations = new List<Specification>();
+            BankDBContext db = new BankDBContext();
+            var list = db.Specification.Where(x => x.SpecificationOwner == ActiveUser.GetActiveUser().ActiveAssembledAccount.AccountNumber);
+            foreach (var spec in list)
+            {
+                specificiations.Add(spec);
+            }
+            return specificiations;
         }
     }
 }
