@@ -1,5 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using System.Runtime.Remoting.Channels;
 using never_404;
 using never_404._404FormGenerator;
 using never_404._404Users;
@@ -17,6 +17,8 @@ namespace never_404.Repository
                     return new LogInFormGenerator();
                 case "Personal details":
                     return new PersonalDetailsFormGenerator();
+                case "Show Transactions":
+                    return new TransactionsFormGerenator();
                 case "Transfer":
                 case "Invoice":
                 case "Loan":

@@ -36,14 +36,16 @@ namespace never_404.Repository
             if (AccountRepository.GetRepository().GetAccount(receiver).AccountType != "Bank")
             {
                 specificationReceiver = GenerateSpecification(transaction.TransactionID, receiver);
+                db.Specification.Add(specificationReceiver);
             }
             if (AccountRepository.GetRepository().GetAccount(sender).AccountType != "Bank")
             {
                 specificationSender = GenerateSpecification(transaction.TransactionID, sender);
+                db.Specification.Add(specificationSender);
             }
 
-            db.Specification.Add(specificationReceiver);
-            db.Specification.Add(specificationSender);
+            
+            
             db.SaveChanges();
         }
 
@@ -60,14 +62,17 @@ namespace never_404.Repository
 
         public List<Specification> GetSpecifications()
         {
-            List<Specification> specificiations = new List<Specification>();
-            BankDBContext db = new BankDBContext();
-            var list = db.Specification.Where(x => x.SpecificationOwner == ActiveUser.GetActiveUser().ActiveAssembledAccount.AccountNumber);
-            foreach (var spec in list)
-            {
-                specificiations.Add(spec);
-            }
-            return specificiations;
+            //List<Specification> specificiations = new List<Specification>();
+            var accountNum = ActiveUser.GetActiveUser().ActiveAssembledAccount.AccountNumber;
+            
+            BankDBContext db = new BankDBContext(); 
+            return db.Specification.Where(x => x.SpecificationOwner == accountNum).ToList();
+
+            //foreach (var spec in list)
+            //{
+            //    specificiations.Add(spec);
+            //}
+            //return specificiations;
         }
     }
 }

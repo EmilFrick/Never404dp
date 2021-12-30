@@ -92,6 +92,7 @@
     <Compile Include="404FormGenerator\MenuFormGenerator.cs" />
     <Compile Include="404FormGenerator\PersonalDetailsFormGenerator.cs" />
     <Compile Include="404FormGenerator\RegisterFormGenerator.cs" />
+    <Compile Include="404FormGenerator\TransactionsFormGerenator.cs" />
     <Compile Include="404Transaction\TransactionModel.cs" />
     <Compile Include="404UI\UI.cs" />
     <Compile Include="404UI\UIConsole.cs" />

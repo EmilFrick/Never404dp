@@ -76,10 +76,9 @@ namespace never_404.Repository
             return input;
         }
 
-        public static List<string> 
-            AddOptionBackToMainMenu(this List<string> options)
+        public static List<string> AddOptions(this List<string> options, params string [] optionsToAdd)
         {
-            options.Add("Back to main menu");
+            options.AddRange(optionsToAdd);
             return options;
         }
     }
