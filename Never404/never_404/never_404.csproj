@@ -89,6 +89,7 @@
     <Compile Include="404BankServices\ActionModel.cs" />
     <Compile Include="404FormGenerator\FormFactory.cs" />
     <Compile Include="404FormGenerator\IFormGenerator.cs" />
+    <Compile Include="404FormGenerator\InquiryBuilder.cs" />
     <Compile Include="404FormGenerator\LogInFormGenerator.cs" />
     <Compile Include="404FormGenerator\MenuFormGenerator.cs" />
     <Compile Include="404FormGenerator\RegisterFormGenerator.cs" />

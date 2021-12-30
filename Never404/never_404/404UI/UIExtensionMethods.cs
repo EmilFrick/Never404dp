@@ -1,5 +1,6 @@
 ﻿using never_404._404Accounts;
 using never_404._404BankServices;
+using never_404._404Users;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -84,24 +85,19 @@ namespace never_404.Repository
             return options;
         }
 
-
-
-
-
-
         public static string RequiredMinAndMaxLength(this string input, string field, int minLength, int maxLength)
         {
             while (true)
             {
                 if (string.IsNullOrEmpty(input) || input.Trim().Length == 0)
                 {
-                    Console.WriteLine($"{field} cannot be empty");
+                    Console.WriteLine($"{field} cannot be empty. We need at least {minLength} characters.");
                     Console.Write($"{field}: ");
                     input = Console.ReadLine();
                 }
                 else if(input.Trim().Length < minLength)
                 {
-                    Console.WriteLine($"{input} cannot contain less than {5} characters");
+                    Console.WriteLine($"{input} cannot contain less than {minLength} characters");
                     Console.Write($"Receiver: ");
                     input = Console.ReadLine();
                 }
@@ -118,24 +114,44 @@ namespace never_404.Repository
             return input;
         }
 
-
-        public static void RequiredInputReceiver(this string receiverInput, ActionModel amRef)
+        public static int ReceiverAccountValidation(this string input)
         {
-            int receiverAccountNumber = receiverInput.RequiredMinAndMaxLength("Receiver", 5, 10).ConvertToValidNumBetween("Receiver", 9999, 1000000000);
+            int validInput = input.ConvertToValidNumBetween("Receiver", 9999, 1000000000);
+
+            while (true)
+            {
+                if (validInput != ActiveUser.GetActiveUser().ActiveAssembledAccount.AccountNumber)
+                {
+                    return validInput;
+                }
+
+                Console.WriteLine("You are not able to make a transaction to an account that you're sending from:");
+                Console.Write("Receiver: ");
+                validInput = Console.ReadLine().ConvertToValidNumBetween("Receiver", 9999, 1000000000);
+            }
+
+        }
+
+        public static void ReceiverInquiry(this string input, ActionModel amRef)
+        {
+
+            int receiverAccountNumber = input.ReceiverAccountValidation();
             string receivername;
             Account result = AccountRepository.GetRepository().GetAccount(receiverAccountNumber);
             if (result == null)
             {
                 receiverAccountNumber = StoredAccounts.GetOthers().AccountNumber;
-                receivername = UIConsole.GetFieldInput("Enter firstname").RequiredMaxLength("Firstname", 20);
-                
+                receivername = UIConsole.GetFieldInput("Enter Receiver Name").RequiredMaxLength("Receiver Name", 20);
             }
             else
             {
-
+                receiverAccountNumber = result.AccountNumber;
+                User resultUserDetails = UserRepository.GetRepository().GetUser(result.UserID.GetValueOrDefault());
+                receivername = $"{resultUserDetails.FirstName} {resultUserDetails.LastName}";
             }
-
-
+            
+            amRef.ReceiverAccount = receiverAccountNumber;
+            amRef.ReceiverLabel = receivername;
         }
     }
 }

@@ -49,5 +49,12 @@ namespace never_404.Repository
             }
             return membershipType;
         }
+
+        public User GetUser(int UID)
+        {
+            BankDBContext db = new BankDBContext();
+            return db.User.Where(x => x.UserID == UID).FirstOrDefault();
+        }
+
     }
 }

@@ -57,10 +57,15 @@ namespace never_404.Repository
         private string RegisterTransferForm()
         {
             UIConsole.AddHeader("Transfer");
-         
+            ActionModel am = new ActionModel();
+            UIConsole.GetFieldInput("Enter account number you wish to transer to:")     //Receiver
+                     .ReceiverInquiry(am);
+
+
+
             //Declaring all vars for transaction
             int sender = ActiveUser.GetActiveUser().ActiveAssembledAccount.AccountNumber;
-            string receiverStr = UIConsole.GetFieldInput("Enter account you wish to transer to:"); //cant transfer to same account you're transfering from. convert to Into
+            string receiverStr; //cant transfer to same account you're transfering from. convert to Into
             int receiver = Convert.ToInt32(receiverStr);
             string amountStr = UIConsole.GetFieldInput("Enter Amount:");
             decimal amount = Convert.ToDecimal(amountStr);
@@ -73,7 +78,6 @@ namespace never_404.Repository
             }
 
             //Creating Action Model
-            ActionModel am = new ActionModel();
             am.SenderAccount = sender;
             am.ReceiverAccount = receiver;
             am.Amount = amount;
