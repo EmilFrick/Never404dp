@@ -1,4 +1,6 @@
-﻿using System;
+﻿using never_404._404Accounts;
+using never_404._404BankServices;
+using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Text.RegularExpressions;
@@ -76,11 +78,64 @@ namespace never_404.Repository
             return input;
         }
 
-        public static List<string> 
-            AddOptionBackToMainMenu(this List<string> options)
+        public static List<string> AddOptionBackToMainMenu(this List<string> options)
         {
             options.Add("Back to main menu");
             return options;
+        }
+
+
+
+
+
+
+        public static string RequiredMinAndMaxLength(this string input, string field, int minLength, int maxLength)
+        {
+            while (true)
+            {
+                if (string.IsNullOrEmpty(input) || input.Trim().Length == 0)
+                {
+                    Console.WriteLine($"{field} cannot be empty");
+                    Console.Write($"{field}: ");
+                    input = Console.ReadLine();
+                }
+                else if(input.Trim().Length < minLength)
+                {
+                    Console.WriteLine($"{input} cannot contain less than {5} characters");
+                    Console.Write($"Receiver: ");
+                    input = Console.ReadLine();
+                }
+                else if (input.Trim().Length > maxLength)
+                {
+                    Console.WriteLine($"{field} cannot contain more than {maxLength} characters");
+                    Console.Write($"{field}: ");
+                    input = Console.ReadLine();
+                }
+                else
+                    break;
+            }
+
+            return input;
+        }
+
+
+        public static void RequiredInputReceiver(this string receiverInput, ActionModel amRef)
+        {
+            int receiverAccountNumber = receiverInput.RequiredMinAndMaxLength("Receiver", 5, 10).ConvertToValidNumBetween("Receiver", 9999, 1000000000);
+            string receivername;
+            Account result = AccountRepository.GetRepository().GetAccount(receiverAccountNumber);
+            if (result == null)
+            {
+                receiverAccountNumber = StoredAccounts.GetOthers().AccountNumber;
+                receivername = UIConsole.GetFieldInput("Enter firstname").RequiredMaxLength("Firstname", 20);
+                
+            }
+            else
+            {
+
+            }
+
+
         }
     }
 }

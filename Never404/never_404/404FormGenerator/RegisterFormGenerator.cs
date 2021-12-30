@@ -151,6 +151,7 @@ namespace never_404.Repository
             //amount:
             UIConsole.AddHeader("Deposit");
             Console.WriteLine("Withdraw Fired");
+            Console.ReadLine();
             return "User Menu";
         }
 

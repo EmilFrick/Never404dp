@@ -10,6 +10,8 @@ namespace never_404._404BankServices
     {
         public int SenderAccount { get; set; }
         public int ReceiverAccount { get; set; }
+        public int SenderLabel { get; set; }
+        public int ReceiverLabel { get; set; }
         public decimal Amount { get; set; }
         public DateTime Date { get; set; }
         public string TransactionType { get; set; }

@@ -60,6 +60,7 @@
     <Compile Include="404Accounts\AccountModel.cs" />
     <Compile Include="404Accounts\AssembledAccount.cs" />
     <Compile Include="404Accounts\IAccount.cs" />
+    <Compile Include="404Accounts\StoredAccounts.cs" />
     <Compile Include="404BankServices\BankServices\ApplyInterest.cs" />
     <Compile Include="404BankServices\BankServices\Deposit.cs" />
     <Compile Include="404BankServices\BankServices\ForeignPayment.cs" />
@@ -96,8 +97,6 @@
     <Compile Include="404UI\UIConsole.cs" />
     <Compile Include="404UI\UIExtensionMethods.cs" />
     <Compile Include="404Users\ActiveUser.cs" />
-    <Compile Include="404ViewModels\UserLogInViewModel.cs" />
-    <Compile Include="404ViewModels\UserRegisterViewModel.cs" />
     <Compile Include="Account.cs">
       <DependentUpon>BankModel.tt</DependentUpon>
     </Compile>
