@@ -46,6 +46,7 @@ namespace never_404.Repository
             db.Specification.Add(specificationSender);
             db.SaveChanges();
         }
+
         private Specification GenerateSpecification(int transactionId, int specOwner)
         {
             Specification specification = new Specification();
@@ -56,6 +57,7 @@ namespace never_404.Repository
 
             return specification;
         }
+
         public List<Specification> GetSpecifications()
         {
             List<Specification> specificiations = new List<Specification>();
