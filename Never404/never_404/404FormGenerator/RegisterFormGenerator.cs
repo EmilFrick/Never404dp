@@ -48,90 +48,24 @@ namespace never_404.Repository
                     break;
 
                 case "Register User":
-                    return RegisterUserForm();
+                    RegisterUserForm();
+                    return "Login";
+
 
                 case "Add new account":
-                    return RegisterAccountForm();
+                    RegisterAccountForm();
+                    return "User Menu";
+
             }
-            
-                ActiveUser.GetActiveUser().ActiveAssembledAccount.ExecuteService(am.TransactionType, am);
-                Console.WriteLine($"{am.TransactionType} successful");
-                Console.ReadLine();
-                return "User Menu";
-        }
 
-
-        private string RegisterPayInvoiceForm()
-        {
-            //PayInvoice
-            //Account number to Pay invoice:
-            //Amount:
-            UIConsole.AddHeader("Invoice");
-            Console.WriteLine("Paying Invoice Fired");
+            ActiveUser.GetActiveUser().ActiveAssembledAccount.ExecuteService(am.TransactionType, am);
+            Console.WriteLine($"{am.TransactionType} successful");
             Console.ReadLine();
             return "User Menu";
         }
 
-        private string RegisterLoanForm()
+        private void RegisterUserForm()
         {
-            //Loan
-            //Amount to borrow:
-            UIConsole.AddHeader("Loan");
-            Console.WriteLine("Taking a Loan Fired");
-            Console.ReadLine();
-            return "User Menu";
-        }
-
-        private string RegisterForeignTransferForm()
-        {
-            //ForeignTransfer
-            //Foreginaccount number:
-            //Amount: 
-            //Message:
-            UIConsole.AddHeader("Foreign Transfer");
-            Console.WriteLine("Foreign Transfer fired");
-            Console.ReadLine();
-            return "User Menu";
-        }
-
-        private string RegisterForeignPaymentForm()
-        {
-            //ForeginPayment
-            //Foreginaccount number:
-            //Amount: 
-            //Message:
-            UIConsole.AddHeader("Foreign Payment");
-            Console.WriteLine("Foreign Payment fired");
-            Console.ReadLine();
-            return "User Menu";
-        }
-
-        private string RegisterWithdrawtForm()
-        {
-            //Withdraw
-            //Accountnumber to deposit:
-            //amount:
-            UIConsole.AddHeader("Withdraw");
-            Console.WriteLine("Withdraw Fired");
-            Console.ReadLine();
-            return "User Menu";
-        }
-
-        private string RegisterDepositForm()
-        {
-            //Deposit
-            //Accountnumber to deposit:
-            //amount:
-            UIConsole.AddHeader("Deposit");
-            Console.WriteLine("Withdraw Fired");
-            Console.ReadLine();
-            return "User Menu";
-        }
-
-        private string RegisterUserForm()
-        {
-            UIConsole.AddHeader("Register New User");
-
             var firstName = UIConsole.GetFieldInput("Enter firstname").RequiredMaxLength("Firstname", 20);
             var lastName = UIConsole.GetFieldInput("Enter lastname").RequiredMaxLength("Firstname", 20);
             var password = UIConsole.GetFieldInput("Enter password").RequiredMaxLength("Password", 20);
@@ -142,15 +76,17 @@ namespace never_404.Repository
             var selectedMembershipIndex = UIConsole.GetSelectedOption(membershipTypes).ConvertToValidNumBetween("Select Membership Type", 1, membershipTypes.Count);
 
             UserRepository.GetRepository().GenerateUser(socSecurityNum, firstName, lastName, password, membershipTypes[selectedMembershipIndex - 1]); //Does not work yet:
-            return "Login";
         }
 
-        private string RegisterAccountForm()
+        private void RegisterAccountForm()
         {
-            UIConsole.AddHeader("Register New Account");
+            var accountTypes = AccountRepository.GetRepository().GetAccountType();
+            UIConsole.AddField("Select Membership Type");
+            var selectedMembershipIndex = UIConsole.GetSelectedOption(accountTypes).ConvertToValidNumBetween("Select Membership Type", 1, accountTypes.Count);
+            var initialAmount = UIConsole.GetFieldInput("Enter Initial Amount").RequiredMaxLength("Initial Amount", 20);
+            //AccountRepository.GetRepository();
             Console.WriteLine("RegisterAccountForm Fired");
             Console.ReadLine();
-            return "User Menu";
         }
     }
 }
