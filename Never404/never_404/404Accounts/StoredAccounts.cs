@@ -16,10 +16,10 @@ namespace never_404._404Accounts
         {
             if (Bank == null)
             {
-                Others = AccountRepository.GetRepository().GetAccount(512885004);
+                Bank = AccountRepository.GetRepository().GetAccount(512885004);
 
             }
-            return Others;
+            return Bank;
         }
 
         public static Account GetOthers()

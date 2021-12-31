@@ -1,12 +1,13 @@
-﻿using System.Linq;
+﻿using never_404._404Accounts;
+using System.Linq;
 
 namespace never_404.Repository
 {
     public class TransactionRepository
     {
         private static TransactionRepository transactionRepo;
-        private int bank404AccountNumber = 512885004;
-        private int othersAccount = 512885027;
+        private int bank404AccountNumber= StoredAccounts.GetBank().AccountNumber;
+        private int othersAccount = StoredAccounts.GetOthers().AccountNumber;
 
         private TransactionRepository()
         {
