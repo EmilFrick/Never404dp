@@ -86,7 +86,7 @@ namespace never_404.Repository
             
             decimal initialAmount = UIConsole.GetFieldInput("Enter Initial Amount").ConvertToValidNumBetween("Initial Amount", 20, 10000);
             
-            Account a = AccountRepository.GetRepository().GenerateAccont(userID, accountTypes[selectedAccountTypeIndex - 1], initialAmount);
+            Account a = AccountRepository.GetRepository().CreateAccount(userID, accountTypes[selectedAccountTypeIndex - 1], initialAmount);
             Console.WriteLine($"Your {a.AccountType} account was successfully created!");
             Console.ReadLine();
         }

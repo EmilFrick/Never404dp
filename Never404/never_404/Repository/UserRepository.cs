@@ -21,11 +21,13 @@ namespace never_404.Repository
             return userRepo;
         }
 
-        public void CreateUser(User user)
+        public User CreateUser(string sSN, string firstName, string lastName, string pw, string membershipType)
         {
+            User user = GenerateUser(sSN, firstName, lastName, pw, membershipType);
             BankDBContext db = new BankDBContext();
             db.User.Add(user);
             db.SaveChanges();
+            return user;
         }
         public User GenerateUser(string sSN, string firstName, string lastName, string pw, string membershipType)
         {
@@ -35,7 +37,6 @@ namespace never_404.Repository
             user.LastName = lastName;
             user.Password = pw;
             user.MembershipType = membershipType;
-
             return user;
         }
         public List<string> GetMebershipType()

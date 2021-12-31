@@ -35,11 +35,13 @@ namespace never_404.Repository
             BankDBContext db = new BankDBContext();
             return db.Account.Where(x => x.UserID == userId).ToList();
         }
-        public void CreateAccount(Account account)
+        public Account CreateAccount(int userId, string accountType, decimal balance)
         {
+            Account account = GenerateAccont(userId, accountType, balance);
             BankDBContext db = new BankDBContext();
             db.Account.Add(account);
             db.SaveChanges();
+            return account;
         }
 
         public Account GenerateAccont(int userId, string accountType, decimal balance)
