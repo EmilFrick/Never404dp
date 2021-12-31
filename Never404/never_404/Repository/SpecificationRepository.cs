@@ -43,9 +43,7 @@ namespace never_404.Repository
                 specificationSender = GenerateSpecification(transaction.TransactionID, sender);
                 db.Specification.Add(specificationSender);
             }
-
-            
-            
+        
             db.SaveChanges();
         }
 
@@ -62,17 +60,10 @@ namespace never_404.Repository
 
         public List<Specification> GetSpecifications()
         {
-            //List<Specification> specificiations = new List<Specification>();
             var accountNum = ActiveUser.GetActiveUser().ActiveAssembledAccount.AccountNumber;
             
             BankDBContext db = new BankDBContext(); 
             return db.Specification.Where(x => x.SpecificationOwner == accountNum).ToList();
-
-            //foreach (var spec in list)
-            //{
-            //    specificiations.Add(spec);
-            //}
-            //return specificiations;
         }
     }
 }
