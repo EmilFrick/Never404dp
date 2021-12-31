@@ -42,10 +42,10 @@ namespace never_404.Repository
             db.SaveChanges();
         }
 
-        public Account GenerateAccont(int accountNum, int userId, string accountType, decimal balance)
+        public Account GenerateAccont(int userId, string accountType, decimal balance)
         {
             Account account = new Account();
-            account.AccountNumber = accountNum;
+            
             account.UserID = userId;
             account.AccountType = accountType;
             account.Balance = balance;

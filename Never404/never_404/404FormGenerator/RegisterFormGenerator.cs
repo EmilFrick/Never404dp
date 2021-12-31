@@ -26,42 +26,40 @@ namespace never_404.Repository
             switch (this.type)
             {
                 case "Deposit":
-                    break;
-
-                case "Withdraw":
-                    break;
-
-                case "Foregin Payment":
-                    break;
-
-                case "Foreign Transfer":
-                    break;
-
                 case "Loan":
-                    break;
-
+                    ib.CreditAmountInquiry();
+                    ExecuteBankService(am);
+                    return "User Menu";
+                case "Withdraw":
+                    ib.DebitAmountInquiry();
+                    ExecuteBankService(am);
+                    return "User Menu";
+                case "Foregin Payment":
+                case "Foreign Transfer":
                 case "Pay Invoice":
-                    break;
-
+                    ib.OtherReceiverInquiry().DebitAmountInquiry();
+                    ExecuteBankService(am);
+                    return "User Menu";
                 case "Transfer":
-                    ib.ReceiverInquiry().AmountInquiry();
-                    break;
-
+                    ib.ReceiverInquiry().DebitAmountInquiry();
+                    ExecuteBankService(am);
+                    return "User Menu";
                 case "Register User":
                     RegisterUserForm();
                     return "Login";
-
-
                 case "Add new account":
                     RegisterAccountForm();
                     return "User Menu";
-
+                default:
+                    return "Form not implemented";
             }
+        }
 
+        private void ExecuteBankService(ActionModel am)
+        {
             ActiveUser.GetActiveUser().ActiveAssembledAccount.ExecuteService(am.TransactionType, am);
             Console.WriteLine($"{am.TransactionType} successful");
             Console.ReadLine();
-            return "User Menu";
         }
 
         private void RegisterUserForm()
@@ -80,12 +78,16 @@ namespace never_404.Repository
 
         private void RegisterAccountForm()
         {
+            var userID = ActiveUser.GetActiveUser().UserID;
+            
             var accountTypes = AccountRepository.GetRepository().GetAccountType();
             UIConsole.AddField("Select Membership Type");
-            var selectedMembershipIndex = UIConsole.GetSelectedOption(accountTypes).ConvertToValidNumBetween("Select Membership Type", 1, accountTypes.Count);
-            var initialAmount = UIConsole.GetFieldInput("Enter Initial Amount").RequiredMaxLength("Initial Amount", 20);
-            //AccountRepository.GetRepository();
-            Console.WriteLine("RegisterAccountForm Fired");
+            var selectedAccountTypeIndex = UIConsole.GetSelectedOption(accountTypes).ConvertToValidNumBetween("Select Membership Type", 1, accountTypes.Count);
+            
+            decimal initialAmount = UIConsole.GetFieldInput("Enter Initial Amount").ConvertToValidNumBetween("Initial Amount", 20, 10000);
+            
+            Account a = AccountRepository.GetRepository().GenerateAccont(userID, accountTypes[selectedAccountTypeIndex - 1], initialAmount);
+            Console.WriteLine($"Your {a.AccountType} account was successfully created!");
             Console.ReadLine();
         }
     }

@@ -114,24 +114,30 @@ namespace never_404.Repository
             return input;
         }
 
-        public static int ReceiverAccountValidation(this string input)
+        public static int ConfirmingAccount(this int input)
         {
-            int validInput = input.ConvertToValidNumBetween("Receiver Account Number", 9999, 1000000000);
-
             while (true)
             {
-                if (validInput != ActiveUser.GetActiveUser().ActiveAssembledAccount.AccountNumber)
+                if (input != ActiveUser.GetActiveUser().ActiveAssembledAccount.AccountNumber)
                 {
-                    return validInput;
+                    break;
                 }
-
-                Console.WriteLine("You are not able to make a transaction to an account that you're sending from:");
-                Console.Write("Receiver Account Number: ");
-                validInput = Console.ReadLine().ConvertToValidNumBetween("Receiver Account Number", 9999, 1000000000);
+                Console.WriteLine("You are not able to make a transfer to the same account you're sending from.");
+                input = UIConsole.GetFieldInput("Enter account number you wish to transer to").ConvertToValidNumBetween("Receiver Account Number", 9999, 1000000000);
             }
 
+            return input;
         }
 
+        public static bool SufficientBalance(this decimal input)
+        {
+            var currentBalance = ActiveUser.GetActiveUser().ActiveAssembledAccount.Balance;
+            if (currentBalance-input < 0)
+            {
+                return false;
+            }
+            return true;
+        }
        
     }
 }

@@ -19,8 +19,11 @@ namespace never_404._404FormGenerator
         }
 
 
-        public InquiryBuilder ForeignReceiverInquiry()
+        public InquiryBuilder OtherReceiverInquiry()
         {
+            UIConsole.GetFieldInput("Enter account number you wish to transer to")
+                                                 .ConvertToValidNumBetween("Receiver Account Number", 9999, 1000000000)
+                                                 .ConfirmingAccount();
             _actionModelReference.ReceiverAccount = StoredAccounts.GetOthers().AccountNumber;
             _actionModelReference.ReceiverLabel = UIConsole.GetFieldInput("Enter Receiver Name").RequiredMaxLength("Receiver Name", 20);
             return this;
@@ -28,19 +31,25 @@ namespace never_404._404FormGenerator
 
         public InquiryBuilder ReceiverInquiry()
         {
-            int receiverAccountNumber = UIConsole.GetFieldInput("Enter account number you wish to transer to").ReceiverAccountValidation();
+            int receiverAccountNumber = UIConsole.GetFieldInput("Enter account number you wish to transer to")
+                                                 .ConvertToValidNumBetween("Receiver Account Number", 9999, 1000000000)
+                                                 .ConfirmingAccount();
+
+
             string receivername;
             Account result = AccountRepository.GetRepository().GetAccount(receiverAccountNumber);
+            
             if (result == null)
             {
                 receiverAccountNumber = StoredAccounts.GetOthers().AccountNumber;
-                receivername = UIConsole.GetFieldInput("Enter Receiver Account Number").RequiredMaxLength("Receiver Account Number", 20);
+                receivername = UIConsole.GetFieldInput("Enter Receiver Account Name").RequiredMaxLength("Receiver Account Name", 20);
             }
             else
             {
+                User recipient = UserRepository.GetRepository().GetUser(receiverAccountNumber);
+                receivername = $"{recipient.FirstName} {recipient.LastName}";
+                Console.WriteLine($"We are preparing a transfer to {receivername}!");
                 receiverAccountNumber = result.AccountNumber;
-                User resultUserDetails = UserRepository.GetRepository().GetUser(result.UserID.GetValueOrDefault());
-                receivername = $"{resultUserDetails.FirstName} {resultUserDetails.LastName}";
             }
 
             _actionModelReference.ReceiverAccount = receiverAccountNumber;
@@ -48,24 +57,34 @@ namespace never_404._404FormGenerator
             return this;
         }
 
-        public InquiryBuilder AmountInquiry()
+        public InquiryBuilder DebitAmountInquiry()
         {
-            int amount = UIConsole.GetFieldInput("Enter Amount:").ConvertToValidNumBetween("Amount", 20, 100000);
+            decimal amount;
+            _actionModelReference.SenderAccount = ActiveUser.GetActiveUser().ActiveAssembledAccount.AccountNumber;
+            _actionModelReference.SenderLabel = $"{ActiveUser.GetActiveUser().FirstName} {ActiveUser.GetActiveUser().LastName}";
+            while (true)
+            {
+                amount = UIConsole.GetFieldInput("Enter Amount").ConvertToValidNumBetween("Enter Amount", 20, 100000);
+                if (amount.SufficientBalance())
+                {
+                    break;
+                }
+                Console.WriteLine("Not enough in your account to make this transaction.");
+            }
+            _actionModelReference.Amount = amount;
+            return this;
+        }
+
+        public InquiryBuilder CreditAmountInquiry()
+        {
+            _actionModelReference.SenderAccount = StoredAccounts.GetBank().AccountNumber;
+            _actionModelReference.SenderLabel = "Never404 Bank";
+            _actionModelReference.ReceiverAccount = ActiveUser.GetActiveUser().ActiveAssembledAccount.AccountNumber;
+            _actionModelReference.ReceiverLabel = $"{ActiveUser.GetActiveUser().FirstName} {ActiveUser.GetActiveUser().LastName}";
+            decimal amount = UIConsole.GetFieldInput($"How much do you want to {_actionModelReference.TransactionType}")
+                                      .ConvertToValidNumBetween("Enter Amount", 20, 100000);
             _actionModelReference.Amount = amount;
             return this;
         }
     }
 }
-
-//int sender = ActiveUser.GetActiveUser().ActiveAssembledAccount.AccountNumber;
-//string receiverStr; //cant transfer to same account you're transfering from. convert to Into
-//int receiver = 5;
-//string amountStr = UIConsole.GetFieldInput("Enter Amount:");
-//decimal amount = Convert.ToDecimal(amountStr);
-//string transactionType = "Transfer";
-
-//if (AccountRepository.GetRepository().GetAccount(receiver) == null)
-//{
-//    int othersAccount = 512885027;
-//    receiver = othersAccount;
-//}
