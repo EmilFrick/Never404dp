@@ -9,10 +9,27 @@ namespace never_404.Repository
         {
             var spefications = SpecificationRepository.GetRepository().GetSpecifications();
 
+            UIConsole.AddHeader("Transaction history");
+            Console.WriteLine("Date          Sender         Receiver        Amount ");
+            Console.WriteLine("---------------------------------------------------");
+            var op = "";
             foreach (var s in spefications)
             {
-                Console.WriteLine($"{s.Transaction.TransactionDate} From {s.Transaction.SenderAccount} to {s.Transaction.ReceiverAccount}");
+                if (s.Transaction.SenderAccount == ActiveUser.GetActiveUser().ActiveAssembledAccount.AccountNumber)
+                {
+                    op = "-";
+                    Console.ForegroundColor = ConsoleColor.Red;
+                }
+                else
+                {
+                    op = "+";
+                    Console.ForegroundColor = ConsoleColor.Green;
+                }
+                
+                Console.WriteLine($"{s.Transaction.TransactionDate:d}    {s.Transaction.SenderAccount}      {s.Transaction.ReceiverAccount}       {op}${s.Transaction.Amount}");
             }
+
+            Console.ForegroundColor = ConsoleColor.White;
 
             Console.ReadLine();
 
