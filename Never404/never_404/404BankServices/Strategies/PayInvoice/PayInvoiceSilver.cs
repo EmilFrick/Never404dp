@@ -13,9 +13,7 @@ namespace never_404._404BankServices.Strategies.PayInvoice
         public void Action(ActionModel data)
         {
             decimal silverFee = 0.12m * data.Amount;
-            Transaction newTransaction = new TransactionModel(data.SenderAccount, data.ReceiverAccount, data.Amount, data.TransactionType).GenerateTransaction();
-            TransactionRepository.GetRepository().CreateTransaction(newTransaction, silverFee);
-            Console.WriteLine("I Pay Silver");
+            TransactionRepository.GetRepository().CreateTransaction(data, silverFee);
         }
     }
 }

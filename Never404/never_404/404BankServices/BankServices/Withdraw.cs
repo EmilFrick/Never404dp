@@ -1,5 +1,6 @@
 ﻿using never_404._404Accounts;
 using never_404._404BankServices.Decorator;
+using never_404.Repository;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,7 +18,7 @@ namespace never_404._404BankServices.BankServices
 
         public override void Action(ActionModel data)
         {
-            Console.WriteLine("I withdrew money from this account.");
+            TransactionRepository.GetRepository().CreateTransaction(data);
         }
     }
 }

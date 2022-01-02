@@ -69,7 +69,6 @@
     <Compile Include="404BankServices\BankServices\Investment.cs" />
     <Compile Include="404BankServices\BankServices\Loan.cs" />
     <Compile Include="404BankServices\BankServices\PayInvoice.cs" />
-    <Compile Include="404BankServices\BankServices\Save.cs" />
     <Compile Include="404BankServices\BankServices\Transfer.cs" />
     <Compile Include="404BankServices\BankServices\Withdraw.cs" />
     <Compile Include="404BankServices\Decorator\AccountDecorator.cs" />
@@ -83,9 +82,6 @@
     <Compile Include="404BankServices\Strategies\PayInvoice\PayInvoiceGold.cs" />
     <Compile Include="404BankServices\Strategies\PayInvoice\PayInvoicePlatinum.cs" />
     <Compile Include="404BankServices\Strategies\PayInvoice\PayInvoiceSilver.cs" />
-    <Compile Include="404BankServices\Strategies\Save\SaveGold.cs" />
-    <Compile Include="404BankServices\Strategies\Save\SavePlatinum.cs" />
-    <Compile Include="404BankServices\Strategies\Save\SaveSilver.cs" />
     <Compile Include="404BankServices\ActionModel.cs" />
     <Compile Include="404FormGenerator\FormFactory.cs" />
     <Compile Include="404FormGenerator\IFormGenerator.cs" />
@@ -95,7 +91,6 @@
     <Compile Include="404FormGenerator\PersonalDetailsFormGenerator.cs" />
     <Compile Include="404FormGenerator\RegisterFormGenerator.cs" />
     <Compile Include="404FormGenerator\TransactionsFormGerenator.cs" />
-    <Compile Include="404Transaction\TransactionModel.cs" />
     <Compile Include="404UI\UI.cs" />
     <Compile Include="404UI\UIConsole.cs" />
     <Compile Include="404UI\UIExtensionMethods.cs" />

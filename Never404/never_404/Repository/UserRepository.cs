@@ -29,7 +29,7 @@ namespace never_404.Repository
             db.SaveChanges();
             return user;
         }
-        public User GenerateUser(string sSN, string firstName, string lastName, string pw, string membershipType)
+       private User GenerateUser(string sSN, string firstName, string lastName, string pw, string membershipType)
         {
             User user = new User();
             user.SSN = sSN;

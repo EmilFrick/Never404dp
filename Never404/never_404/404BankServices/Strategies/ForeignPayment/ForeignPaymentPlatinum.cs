@@ -13,9 +13,7 @@ namespace never_404._404BankServices.Strategies.ForeignPayment
         public void Action(ActionModel data)
         {
             decimal platinumFee = 0.05m * data.Amount;
-            Transaction newTransaction = new TransactionModel(data.SenderAccount, data.ReceiverAccount, data.Amount, data.TransactionType).GenerateTransaction();
-            TransactionRepository.GetRepository().CreateTransaction(newTransaction, platinumFee);
-            Console.WriteLine("Foreign payment Platinum");
+            TransactionRepository.GetRepository().CreateTransaction(data, platinumFee);
         }
     }
 }

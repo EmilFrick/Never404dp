@@ -13,9 +13,7 @@ namespace never_404._404BankServices.Strategies.ForeignTransfer
         public void Action(ActionModel data)
         {
             int bankFixedRate = 50;
-            Transaction newTransaction = new TransactionModel(data.SenderAccount, data.ReceiverAccount, data.Amount, data.TransactionType).GenerateTransaction();
-            TransactionRepository.GetRepository().CreateTransaction(newTransaction, bankFixedRate);
-            Console.WriteLine("Foreign transfer with Platinum");
+            TransactionRepository.GetRepository().CreateTransaction(data, bankFixedRate);
         }
     }
 }
