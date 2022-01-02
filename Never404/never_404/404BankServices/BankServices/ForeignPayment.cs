@@ -1,7 +1,6 @@
 ﻿using never_404._404Accounts;
 using never_404._404BankServices.Decorator;
 using never_404._404BankServices.Strategies;
-using never_404._404BankServices.Strategies.Save;
 using never_404._404BankServices.Strategies.ForeignPayment;
 using System;
 using System.Collections.Generic;
@@ -24,7 +23,6 @@ namespace never_404._404BankServices.BankServices
         public override void Action(ActionModel data)
         {
             Strategy.Action(data);
-            //Console.WriteLine("I made a payment to an account outside of Sweden");
         }
         public void IdentifyStrategy(string membership)
         {

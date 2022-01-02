@@ -33,35 +33,35 @@ namespace never_404._404Accounts
                     return ab.AddApplyInterest().AddDeposit().AddForeignPayment().AddForeignTransfer().AddInvestment().AddInvoice().AddLoan().AddTransfer().AddWithdraw().FinalizeAccount();
 
                 case "Private":
-                    ab.AddSave();
+                    ab.AddDeposit();
                     return ab.FinalizeAccount();
 
                 case "Business":
-                    ab.AddSave();
+                    ab.AddDeposit();
                     return ab.FinalizeAccount();
 
                 case "Enterprise":
-                    ab.AddSave();
+                    ab.AddDeposit();
                     return ab.FinalizeAccount();
 
                 case "Trade":
-                    ab.AddSave();
+                    ab.AddDeposit();
                     return ab.FinalizeAccount();
 
                 case "Foreign":
-                    ab.AddSave();
+                    ab.AddDeposit();
                     return ab.FinalizeAccount();
 
                 case "Student":
-                    ab.AddSave();
+                    ab.AddDeposit();
                     return ab.FinalizeAccount();
 
                 case "Senior":
-                    ab.AddSave();
+                    ab.AddDeposit();
                     return ab.FinalizeAccount();
 
                 case "Nine-To-Five":
-                    ab.AddSave();
+                    ab.AddDeposit();
                     return ab.FinalizeAccount();
 
                 case "Bank":
