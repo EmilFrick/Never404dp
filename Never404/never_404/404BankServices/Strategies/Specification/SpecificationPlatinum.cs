@@ -6,7 +6,21 @@ using System.Threading.Tasks;
 
 namespace never_404._404BankServices.Strategies.Specification
 {
-    class SpecificationPlatinum
+    public class SpecificationPlatinum : ISpecificationStrategy
     {
+        public decimal ConvertValue(ActionModel data)
+        {
+            switch (data.TransactionType)
+            {
+                case "Pay Invoice":
+                    return MembershipRates.PayInvoicePlatinum * data.Amount;
+                case "Foreign Transfer":
+                    return MembershipRates.ForeignTransferPlatinum + data.Amount;
+                case "Foreign Payment":
+                    return MembershipRates.ForeignPaymentPlatinum * data.Amount;
+                default:
+                    return 0;
+            }
+        }
     }
 }
