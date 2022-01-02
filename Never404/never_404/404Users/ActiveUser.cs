@@ -88,5 +88,9 @@ namespace never_404._404Users
         {
             _activeUser = null;
         }
+        public void SetAssembledAccount(AssembledAccount account)
+        {
+            AssembledAccounts.Add(account);
+        }
     }
 }
