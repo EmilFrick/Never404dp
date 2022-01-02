@@ -15,12 +15,10 @@ namespace never_404.Repository
             var id = UIConsole.GetFieldInput("Enter your UID").ConvertToValidNumBetween("UID", 1);
             var password = UIConsole.GetFieldInput("Enter your password").RequiredMaxLength("Password", 20);
 
-
             BankDBContext db = new BankDBContext();
             try
             {
                 var user = db.User.FirstOrDefault(x => x.UserID == id && x.Password == password);
-                var accounts = db.Account.Where(y => y.UserID == id).ToList();
                 if (user == null)
                     return "Login";
                 else
@@ -28,15 +26,11 @@ namespace never_404.Repository
                     var activeUser = ActiveUser.GetActiveUser().InitiateActiveUser(user.UserID, user.SSN, user.FirstName, user.LastName, user.MembershipType);
                     return "User Menu";
                 }
-
             }
             catch (Exception ex)
             {
                 Console.WriteLine(ex.Message);
             }
-            //Kolla mot databasen om användaren finns.
-
-            //Om det lyckas:
             return "Login";
         }
     }

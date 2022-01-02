@@ -10,9 +10,7 @@ namespace never_404._404Users
 {
     public class ActiveUser
     {
-
         private static ActiveUser _activeUser;
-
 
         public int UserID { get; set; }
         public string SSN { get; set; }
@@ -41,7 +39,6 @@ namespace never_404._404Users
             {
                 _activeUser = new ActiveUser();
             }
-
             return _activeUser;
         }
         public ActiveUser InitiateActiveUser(int userid, string ssn, string firstname, string lastname, string membership)
