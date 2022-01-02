@@ -29,7 +29,7 @@ namespace never_404.Repository
             db.SaveChanges();
             return user;
         }
-        public User GenerateUser(string sSN, string firstName, string lastName, string pw, string membershipType)
+        private User GenerateUser(string sSN, string firstName, string lastName, string pw, string membershipType)
         {
             User user = new User();
             user.SSN = sSN;
@@ -57,5 +57,12 @@ namespace never_404.Repository
             return db.User.Where(x => x.UserID == UID).FirstOrDefault();
         }
 
+        public User GetUserByAccountNumber(int accountNumber)
+        {
+            BankDBContext db = new BankDBContext();
+            var account = db.Account.FirstOrDefault(x => x.AccountNumber == accountNumber);
+            return db.User.FirstOrDefault(x => x.UserID == account.UserID);    
+            
+        }
     }
 }

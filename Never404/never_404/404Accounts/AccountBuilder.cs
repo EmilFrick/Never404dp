@@ -17,12 +17,6 @@ namespace never_404._404Accounts
             Account = baseAccount;
         }
 
-        public AccountBuilder AddSave()
-        {
-            Account = new Save(Account);
-            return this;
-        }
-
         public AccountBuilder AddApplyInterest()
         {
             Account = new ApplyInterest(Account);

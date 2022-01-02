@@ -1,4 +1,6 @@
 ﻿using never_404._404Accounts;
+using never_404._404BankServices;
+using System;
 using System.Linq;
 
 namespace never_404.Repository
@@ -22,8 +24,9 @@ namespace never_404.Repository
             return transactionRepo;
         }
 
-        public void CreateTransaction(Transaction transaction, decimal fee = 0)
+        public void CreateTransaction(ActionModel data, decimal fee = 0)
         {
+            Transaction transaction = GenerateTransaction(data.SenderAccount, data.ReceiverAccount, data.Amount, data.TransactionType);
             BankDBContext db = new BankDBContext();
             if (transaction.ReceiverAccount == othersAccount)
             {
@@ -38,7 +41,18 @@ namespace never_404.Repository
             db.Transaction.Add(transaction);
             db.SaveChanges();
 
-            SpecificationRepository.GetRepository().CreateSpecification(transaction);
+            SpecificationRepository.GetRepository().CreateSpecification(transaction, data);
+        }
+        private Transaction GenerateTransaction(int senderAccount, int receiverAccount, decimal amount, string transactionType)
+        {
+            Transaction transaction = new Transaction();
+            transaction.SenderAccount = senderAccount;
+            transaction.ReceiverAccount = receiverAccount;
+            transaction.Amount = amount;
+            transaction.TransactionDate = DateTime.Now;
+            transaction.TransactionType = transactionType;
+
+            return transaction;
         }
     }
 }

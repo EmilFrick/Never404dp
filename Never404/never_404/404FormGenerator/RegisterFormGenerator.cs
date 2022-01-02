@@ -73,7 +73,7 @@ namespace never_404.Repository
             UIConsole.AddField("Select Membership Type");
             var selectedMembershipIndex = UIConsole.GetSelectedOption(membershipTypes).ConvertToValidNumBetween("Select Membership Type", 1, membershipTypes.Count);
 
-            UserRepository.GetRepository().GenerateUser(socSecurityNum, firstName, lastName, password, membershipTypes[selectedMembershipIndex - 1]); //Does not work yet:
+            UserRepository.GetRepository().CreateUser(socSecurityNum, firstName, lastName, password, membershipTypes[selectedMembershipIndex - 1]); //Does not work yet:
         }
 
         private void RegisterAccountForm()

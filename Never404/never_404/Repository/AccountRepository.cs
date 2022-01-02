@@ -41,10 +41,11 @@ namespace never_404.Repository
             BankDBContext db = new BankDBContext();
             db.Account.Add(account);
             db.SaveChanges();
+
             return account;
         }
 
-        public Account GenerateAccont(int userId, string accountType, decimal balance)
+        private Account GenerateAccont(int userId, string accountType, decimal balance)
         {
             Account account = new Account();
             
@@ -65,6 +66,18 @@ namespace never_404.Repository
                 accountType.Add(name.AccountTypeName);
             }
             return accountType;
+        }
+
+        public int GetAccountId(Account account)
+        {
+            int accountNumber;
+            using (BankDBContext db = new BankDBContext())
+            {
+                db.Account.Add(account);
+                db.SaveChanges();
+                accountNumber = account.AccountNumber;
+            }
+            return accountNumber;
         }
     }
 }

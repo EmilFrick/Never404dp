@@ -1,9 +1,7 @@
-﻿using never_404._404Users;
-using System;
+﻿using never_404._404BankServices;
+using never_404._404Users;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace never_404.Repository
 {
@@ -25,35 +23,31 @@ namespace never_404.Repository
             return specificationRepo;
         }
 
-        public void CreateSpecification(Transaction transaction)
+        public void CreateSpecification(Transaction transaction, ActionModel data)
         {
             BankDBContext db = new BankDBContext();
-            Specification specificationReceiver = null;
-            Specification specificationSender = null;
             int receiver = transaction.ReceiverAccount.GetValueOrDefault();
             int sender = transaction.SenderAccount.GetValueOrDefault();
 
             if (AccountRepository.GetRepository().GetAccount(receiver).AccountType != "Bank")
             {
-                specificationReceiver = GenerateSpecification(transaction.TransactionID, receiver);
-                db.Specification.Add(specificationReceiver);
+                db.Specification.Add(GenerateSpecification(transaction.TransactionID, receiver, data));
             }
             if (AccountRepository.GetRepository().GetAccount(sender).AccountType != "Bank")
             {
-                specificationSender = GenerateSpecification(transaction.TransactionID, sender);
-                db.Specification.Add(specificationSender);
+                db.Specification.Add(GenerateSpecification(transaction.TransactionID, sender, data));
             }
-        
+
             db.SaveChanges();
         }
 
-        private Specification GenerateSpecification(int transactionId, int specOwner)
+        private Specification GenerateSpecification(int transactionId, int specOwner, ActionModel data)
         {
             Specification specification = new Specification();
             specification.SpecificationOwner = specOwner;
             specification.TransactionID = transactionId;
-            specification.Sender = "Label - sender";
-            specification.Receiver = "Label - receiver";
+            specification.Sender = data.SenderLabel;
+            specification.Receiver = data.ReceiverLabel;
 
             return specification;
         }
@@ -61,8 +55,8 @@ namespace never_404.Repository
         public List<Specification> GetSpecifications()
         {
             var accountNum = ActiveUser.GetActiveUser().ActiveAssembledAccount.AccountNumber;
-            
-            BankDBContext db = new BankDBContext(); 
+
+            BankDBContext db = new BankDBContext();
             return db.Specification.Where(x => x.SpecificationOwner == accountNum).ToList();
         }
     }
