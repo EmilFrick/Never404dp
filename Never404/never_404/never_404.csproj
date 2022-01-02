@@ -87,6 +87,9 @@
     <Compile Include="404BankServices\Strategies\Save\SavePlatinum.cs" />
     <Compile Include="404BankServices\Strategies\Save\SaveSilver.cs" />
     <Compile Include="404BankServices\ActionModel.cs" />
+    <Compile Include="404BankServices\Strategies\Specification\SpecificationGold.cs" />
+    <Compile Include="404BankServices\Strategies\Specification\SpecificationPlatinum.cs" />
+    <Compile Include="404BankServices\Strategies\Specification\SpecificationSilver.cs" />
     <Compile Include="404FormGenerator\FormFactory.cs" />
     <Compile Include="404FormGenerator\IFormGenerator.cs" />
     <Compile Include="404FormGenerator\InquiryBuilder.cs" />
@@ -170,7 +173,9 @@
       <LastGenOutput>BankModel.cs</LastGenOutput>
     </Content>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="404BankServices\Strategies\MembershipRates\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>
