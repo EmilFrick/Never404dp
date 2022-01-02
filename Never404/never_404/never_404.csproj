@@ -73,6 +73,7 @@
     <Compile Include="404BankServices\BankServices\Transfer.cs" />
     <Compile Include="404BankServices\BankServices\Withdraw.cs" />
     <Compile Include="404BankServices\Decorator\AccountDecorator.cs" />
+    <Compile Include="404BankServices\Strategies\Specification\ISpecificationStrategy.cs" />
     <Compile Include="404BankServices\Strategies\ForeignPayment\ForeignPaymentGold.cs" />
     <Compile Include="404BankServices\Strategies\ForeignPayment\ForeignPaymentPlatinum.cs" />
     <Compile Include="404BankServices\Strategies\ForeignPayment\ForeignPaymentSilver.cs" />
@@ -80,6 +81,7 @@
     <Compile Include="404BankServices\Strategies\ForeignTransfer\ForeignTransferPlatinum.cs" />
     <Compile Include="404BankServices\Strategies\ForeignTransfer\ForeignTransferSilver.cs" />
     <Compile Include="404BankServices\Strategies\IMembershipStrategy.cs" />
+    <Compile Include="404BankServices\Strategies\MembershipRates.cs" />
     <Compile Include="404BankServices\Strategies\PayInvoice\PayInvoiceGold.cs" />
     <Compile Include="404BankServices\Strategies\PayInvoice\PayInvoicePlatinum.cs" />
     <Compile Include="404BankServices\Strategies\PayInvoice\PayInvoiceSilver.cs" />
@@ -87,6 +89,10 @@
     <Compile Include="404BankServices\Strategies\Save\SavePlatinum.cs" />
     <Compile Include="404BankServices\Strategies\Save\SaveSilver.cs" />
     <Compile Include="404BankServices\ActionModel.cs" />
+    <Compile Include="404BankServices\Strategies\Specification\SpecificationGold.cs" />
+    <Compile Include="404BankServices\Strategies\Specification\SpecificationValueConverter.cs" />
+    <Compile Include="404BankServices\Strategies\Specification\SpecificationPlatinum.cs" />
+    <Compile Include="404BankServices\Strategies\Specification\SpecificationSilver.cs" />
     <Compile Include="404FormGenerator\FormFactory.cs" />
     <Compile Include="404FormGenerator\IFormGenerator.cs" />
     <Compile Include="404FormGenerator\InquiryBuilder.cs" />
