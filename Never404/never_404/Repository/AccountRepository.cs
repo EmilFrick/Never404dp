@@ -45,7 +45,7 @@ namespace never_404.Repository
             return account;
         }
 
-        private Account GenerateAccont(int userId, string accountType, decimal balance)
+        public Account GenerateAccont(int userId, string accountType, decimal balance)
         {
             Account account = new Account();
             

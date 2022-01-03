@@ -2,6 +2,7 @@
 using never_404._404BankServices.Decorator;
 using never_404._404BankServices.Strategies;
 using never_404._404BankServices.Strategies.ForeignTransfer;
+using never_404._404Users;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,7 +17,7 @@ namespace never_404._404BankServices.BankServices
         public ForeignTransfer(IAccount account) : base(account)
         {
             ServiceName = "Foreign Transfer";
-            IdentifyStrategy(null);
+            IdentifyStrategy();
         }
 
         public override void Action(ActionModel data)
@@ -24,8 +25,9 @@ namespace never_404._404BankServices.BankServices
             Strategy.Action(data);
             //Console.WriteLine("I transfered money to an account outside of Sweden.");
         }
-        public void IdentifyStrategy(string membership)
+        public void IdentifyStrategy()
         {
+            string membership = ActiveUser.GetActiveUser().MembershipType;
             if (membership == "Platinum")
             {
                 Strategy = new ForeignTransferPlatinum();

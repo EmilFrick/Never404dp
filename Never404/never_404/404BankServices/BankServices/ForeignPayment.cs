@@ -2,6 +2,7 @@
 using never_404._404BankServices.Decorator;
 using never_404._404BankServices.Strategies;
 using never_404._404BankServices.Strategies.ForeignPayment;
+using never_404._404Users;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,15 +18,16 @@ namespace never_404._404BankServices.BankServices
         public ForeignPayment(IAccount account) : base(account)
         {
             ServiceName = "Foreign Payment";
-            IdentifyStrategy(null);
+            IdentifyStrategy();
         }
 
         public override void Action(ActionModel data)
         {
             Strategy.Action(data);
         }
-        public void IdentifyStrategy(string membership)
+        public void IdentifyStrategy()
         {
+            string membership = ActiveUser.GetActiveUser().MembershipType;
             if (membership == "Platinum")
             {
                 Strategy = new ForeignPaymentPlatinum();

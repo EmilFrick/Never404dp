@@ -2,6 +2,7 @@
 using never_404._404BankServices.Decorator;
 using never_404._404BankServices.Strategies;
 using never_404._404BankServices.Strategies.PayInvoice;
+using never_404._404Users;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,15 +17,16 @@ namespace never_404._404BankServices.BankServices
         public PayInvoice(IAccount account) : base(account)
         {
             ServiceName = "Pay Invoice";
-            IdentifyStrategy("Gold");
+            IdentifyStrategy();
         }
 
         public override void Action(ActionModel data)
         {
             strategy.Action(data);
         }
-        public void IdentifyStrategy(string membership)
+        public void IdentifyStrategy()
         {
+            string membership = ActiveUser.GetActiveUser().MembershipType;
             if (membership == "Platinum")
             {
                 strategy = new PayInvoicePlatinum();

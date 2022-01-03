@@ -1,4 +1,5 @@
 ﻿using Microsoft.Win32;
+using never_404._404Accounts;
 using never_404._404BankServices;
 using never_404._404BankServices.BankServices;
 using never_404._404FormGenerator;
@@ -86,7 +87,10 @@ namespace never_404.Repository
             
             decimal initialAmount = UIConsole.GetFieldInput("Enter Initial Amount").ConvertToValidNumBetween("Initial Amount", 20, 10000);
             
-            Account a = AccountRepository.GetRepository().CreateAccount(userID, accountTypes[selectedAccountTypeIndex - 1], initialAmount);
+            Account a = AccountRepository.GetRepository().GenerateAccont(userID, accountTypes[selectedAccountTypeIndex - 1], initialAmount);
+            int accountnumber = AccountRepository.GetRepository().GetAccountId(a);
+            AssembledAccount addingAccountToActiveUser = AccountFactory.AssembleAccount(accountnumber);
+            ActiveUser.GetActiveUser().SetAssembledAccount(addingAccountToActiveUser);
             Console.WriteLine($"Your {a.AccountType} account was successfully created!");
             Console.ReadLine();
         }

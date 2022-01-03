@@ -46,7 +46,7 @@ namespace never_404._404FormGenerator
             }
             else
             {
-                User recipient = UserRepository.GetRepository().GetUser(receiverAccountNumber);
+                User recipient = UserRepository.GetRepository().GetUserByAccountNumber(receiverAccountNumber);
                 receivername = $"{recipient.FirstName} {recipient.LastName}";
                 Console.WriteLine($"We are preparing a transfer to {receivername}!");
                 receiverAccountNumber = result.AccountNumber;
