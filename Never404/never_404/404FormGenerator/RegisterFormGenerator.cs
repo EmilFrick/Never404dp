@@ -62,6 +62,7 @@ namespace never_404.Repository
             Console.WriteLine($"{am.TransactionType} successful");
             Console.ReadLine();
         }
+        
 
         private void RegisterUserForm()
         {
