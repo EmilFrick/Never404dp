@@ -19,7 +19,7 @@ namespace never_404._404BankServices.Strategies.Specification
                 case "Foreign Payment":
                     return MembershipRates.ForeignPaymentSilver * data.Amount;
                 default:
-                    return 0;
+                    return data.Amount;
             }
         }
     }
