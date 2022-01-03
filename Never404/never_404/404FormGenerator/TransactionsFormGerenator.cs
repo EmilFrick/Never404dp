@@ -1,4 +1,6 @@
 ﻿using System;
+using never_404._404BankServices;
+using never_404._404BankServices.Strategies.Specification;
 using never_404._404Users;
 
 namespace never_404.Repository
@@ -8,30 +10,35 @@ namespace never_404.Repository
         public string GenerateForm()
         {
             var spefications = SpecificationRepository.GetRepository().GetSpecifications();
-
+            
+            
             UIConsole.AddHeader("Transaction history");
-            Console.WriteLine("Date          Sender         Receiver        Amount ");
-            Console.WriteLine("---------------------------------------------------");
-            var op = "";
+            UIConsole.AddTableHeader(20, "Date", "From", "To", "Amount", "Transaction type");
+           
             foreach (var s in spefications)
             {
+                var data = new ActionModel();
+                data.Amount = s.Transaction.Amount.GetValueOrDefault();
+                data.TransactionType = s.Transaction.TransactionType;
+                var specValueConverter = new SpecificationValueConverter();
+
+                string op;
                 if (s.Transaction.SenderAccount == ActiveUser.GetActiveUser().ActiveAssembledAccount.AccountNumber)
                 {
                     op = "-";
-                    Console.ForegroundColor = ConsoleColor.Red;
+                    UIConsole.SetColor(ConsoleColor.Red);
                 }
                 else
                 {
                     op = "+";
-                    Console.ForegroundColor = ConsoleColor.Green;
+                    UIConsole.SetColor(ConsoleColor.Green);
                 }
                 
-                Console.WriteLine($"{s.Transaction.TransactionDate:d}    {s.Transaction.SenderAccount}      {s.Transaction.ReceiverAccount}       {op}${s.Transaction.Amount}");
+                UIConsole.AddTableRow(20, $"{s.Transaction.TransactionDate:d}", $"{s.Sender}", $"{s.Receiver}", $"{op}${specValueConverter.ConvertValue(data)}", $"{s.Transaction.TransactionType}");
             }
 
-            Console.ForegroundColor = ConsoleColor.White;
-
             Console.ReadLine();
+            UIConsole.SetDefaultColor();
 
             return ActiveUser.GetActiveUser().ActiveAssembledAccount.AccountNumber.ToString();
         }
