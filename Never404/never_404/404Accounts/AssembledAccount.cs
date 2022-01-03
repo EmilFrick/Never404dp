@@ -14,7 +14,7 @@ namespace never_404._404Accounts
         public int AccountNumber { get; set; }
         public decimal Balance { get; set; }
 
-        public List<IBankService> AccountServices;
+        private List<IBankService> AccountServices;
 
         public AssembledAccount(string type, int number, decimal balance, List<IBankService> services)
         {

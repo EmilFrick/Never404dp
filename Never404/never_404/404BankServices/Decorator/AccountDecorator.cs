@@ -10,7 +10,7 @@ namespace never_404._404BankServices.Decorator
 {
     public class AccountDecorator : IAccount, IBankService
     {
-        private IAccount Account { get; set; }
+        private IAccount Account;
         public string AccountType { get; set; }
         public int AccountNumber { get; set; }
         public decimal Balance { get; set; }
