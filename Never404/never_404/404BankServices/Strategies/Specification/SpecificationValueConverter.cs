@@ -26,7 +26,7 @@ namespace never_404._404BankServices.Strategies.Specification
                     strategy = new SpecificationSilver();
                     return strategy.ConvertValue(data);
                 default:
-                    return 0;
+                    return data.Amount;
             }
 
         }
