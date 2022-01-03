@@ -20,7 +20,7 @@ namespace never_404.Repository
                 case "Show Transactions":
                     return new TransactionsFormGerenator();
                 case "Transfer":
-                case "Invoice":
+                case "Pay Invoice":
                 case "Loan":
                 case "Foreign Transfer":
                 case "Foreign Payment":
